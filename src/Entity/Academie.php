@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AcademieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AcademieRepository::class)]
@@ -27,6 +29,14 @@ class Academie
 
     #[ORM\ManyToOne(inversedBy: 'academies')]
     private ?Ministre $ministre_Academie = null;
+
+    #[ORM\OneToMany(mappedBy: 'academie', targetEntity: Personnel::class)]
+    private Collection $personnels_acad;
+
+    public function __construct()
+    {
+        $this->personnels_acad = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +99,36 @@ class Academie
     public function setMinistreAcademie(?Ministre $ministre_Academie): self
     {
         $this->ministre_Academie = $ministre_Academie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Personnel>
+     */
+    public function getPersonnelsAcad(): Collection
+    {
+        return $this->personnels_acad;
+    }
+
+    public function addPersonnelsAcad(Personnel $personnelsAcad): self
+    {
+        if (!$this->personnels_acad->contains($personnelsAcad)) {
+            $this->personnels_acad->add($personnelsAcad);
+            $personnelsAcad->setAcademie($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonnelsAcad(Personnel $personnelsAcad): self
+    {
+        if ($this->personnels_acad->removeElement($personnelsAcad)) {
+            // set the owning side to null (unless already changed)
+            if ($personnelsAcad->getAcademie() === $this) {
+                $personnelsAcad->setAcademie(null);
+            }
+        }
 
         return $this;
     }
