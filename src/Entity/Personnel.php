@@ -43,9 +43,6 @@ class Personnel
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Grade $grade = null;
-
     #[ORM\ManyToOne(inversedBy: 'personnels')]
     private ?Poste $poste = null;
 
@@ -60,6 +57,9 @@ class Personnel
 
     #[ORM\ManyToOne(inversedBy: 'personnels_acad')]
     private ?Academie $academie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'personnelsGrade')]
+    private ?Grade $grade = null;
 
     public function __construct()
     {
@@ -178,18 +178,7 @@ class Personnel
 
         return $this;
     }
-
-    public function getGrade(): ?Grade
-    {
-        return $this->grade;
-    }
-
-    public function setGrade(?Grade $grade): self
-    {
-        $this->grade = $grade;
-
-        return $this;
-    }
+    
 
     public function getPoste(): ?Poste
     {
@@ -265,6 +254,18 @@ class Personnel
     public function setAcademie(?Academie $academie): self
     {
         $this->academie = $academie;
+
+        return $this;
+    }
+
+    public function getGrade(): ?Grade
+    {
+        return $this->grade;
+    }
+
+    public function setGrade(?Grade $grade): self
+    {
+        $this->grade = $grade;
 
         return $this;
     }

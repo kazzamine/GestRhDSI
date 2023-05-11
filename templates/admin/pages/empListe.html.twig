@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %} Liste employés{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4">Employés</h3>
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">Infos des Employés</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-12">
+                        <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+                    </div>
+                </div>
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>nom</th>
+                            <th>prenom</th>
+                            <th>PPR</th>
+                            <th>CIN</th>
+                            <th>grade</th>
+                            <th>poste</th>
+                            <th>Consulter</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for personnel in persoListe %}
+                        <tr>
+                            <td>{{ personnel.getNomPerso() }}</td>
+                            <td>{{ personnel.getPrenomPerso() }}</td>
+                            <td>{{ personnel.getPPR() }}</td>
+                            <td>{{ personnel.getCIN() }}</td>
+                            <td>{{ personnel.getGrade().getNomGrade() }}</td>
+                            <td>{% if(personnel.getPoste()==null) %}
+                                {% else %}
+                                    {{  personnel.getPoste().getNomPoste()}}
+                                {% endif %}
+                            </td>
+                            <td><a class="btn btn-primary" role="button" href={{ path('employeInfo',{'ppr':personnel.getPPR()}) }}>consulter</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

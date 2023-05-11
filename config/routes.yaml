@@ -1,3 +1,18 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+index:
+    path: /
+    controller: App\Controller\LoginController::index
+adminDashboard:
+    path: /adminDashboard
+    controller: App\Controller\DashboardController::index
+employeMenu:
+    path: /empMenu
+    controller: app\Controller\gestEmploye\empMenuController
+listeEmploye:
+    path: /empMenu/listEmp
+    controller: app\Controller\gestEmploye\EmpListeController
+employeInfo:
+    path: /empMenu/listEmp/empInfo
+    controller: app\Controller\gestEmploye\EmpInfoController

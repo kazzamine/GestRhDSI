@@ -1,0 +1,30 @@
+{% extends '/admin/base.html.twig' %}
+{% block title %}Employés menu {% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-1">Gestion des employés</h3>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-primary shadow">
+                        <div class="card-body"><a class="btn btn-primary" role="button" href={{ path('listeEmploye') }}>Liste des employés</a>
+                            <p class="m-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-success shadow">
+                        <div class="card-body"><a class="btn btn-success link-light" role="button" href="addEmp.html">Ajouter employé</a></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-info shadow">
+                        <div class="card-body"><a class="btn btn-info link-light" role="button" href="import.html">Importer une liste des employés</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

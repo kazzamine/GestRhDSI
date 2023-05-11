@@ -2,8 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <title>{% block title %}Ressource humain!{% endblock %}</title>
+        <link rel="icon" href={{ asset("assets/img/images/kingdomMorocco.png") }}>
+        <link rel="stylesheet" href={{ asset("assets/bootstrap/css/bootstrap.min.css") }}>
+        <link rel="stylesheet" href={{ asset("https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap") }}>
+        <link rel="stylesheet" href={{ asset( "assets/css/Contact-FormModal-Contact-Form-with-Google-Map.css")}}>
+        <link rel="stylesheet" href={{ asset("assets/css/Download-App-Section.css")}} >
+        <link rel="stylesheet" href={{ asset("assets/css/Navbar-Centered-Brand-icons.css") }}>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -13,7 +18,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="bg-gradient-primary" style="color: var(--bs-red);background: var(--bs-gray-100);">
         {% block body %}{% endblock %}
     </body>
 </html>
