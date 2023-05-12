@@ -49,9 +49,6 @@ class Personnel
     #[ORM\ManyToOne(inversedBy: 'personnels_ser')]
     private ?Service $service = null;
 
-    #[ORM\OneToMany(mappedBy: 'personnels_dev', targetEntity: Devision::class)]
-    private Collection $devision;
-
     #[ORM\ManyToOne(inversedBy: 'personnels_dir')]
     private ?Direction $direction = null;
 
@@ -61,9 +58,15 @@ class Personnel
     #[ORM\ManyToOne(inversedBy: 'personnelsGrade')]
     private ?Grade $grade = null;
 
+    #[ORM\ManyToOne(inversedBy: 'personnels')]
+    private ?Devision $devision = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Contract $contract = null;
+
     public function __construct()
     {
-        $this->devision = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -204,35 +207,6 @@ class Personnel
         return $this;
     }
 
-    /**
-     * @return Collection<int, Devision>
-     */
-    public function getDevision(): Collection
-    {
-        return $this->devision;
-    }
-
-    public function addDevision(Devision $devision): self
-    {
-        if (!$this->devision->contains($devision)) {
-            $this->devision->add($devision);
-            $devision->setPersonnelsDev($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDevision(Devision $devision): self
-    {
-        if ($this->devision->removeElement($devision)) {
-            // set the owning side to null (unless already changed)
-            if ($devision->getPersonnelsDev() === $this) {
-                $devision->setPersonnelsDev(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getDirection(): ?Direction
     {
@@ -266,6 +240,30 @@ class Personnel
     public function setGrade(?Grade $grade): self
     {
         $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getDevision(): ?Devision
+    {
+        return $this->devision;
+    }
+
+    public function setDevision(?Devision $devision): self
+    {
+        $this->devision = $devision;
+
+        return $this;
+    }
+
+    public function getContract(): ?Contract
+    {
+        return $this->contract;
+    }
+
+    public function setContract(?Contract $contract): self
+    {
+        $this->contract = $contract;
 
         return $this;
     }

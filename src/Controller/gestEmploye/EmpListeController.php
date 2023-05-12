@@ -9,7 +9,7 @@ use App\Repository\PersonnelRepository;
 
 class EmpListeController extends AbstractController
 {
-    #[Route('/empMenu/listEmp', name: 'listEmp')]
+    #[Route('/admin/empMenu/listEmp', name: 'listEmp')]
     public function index(PersonnelRepository $persoRep): Response
     {
 

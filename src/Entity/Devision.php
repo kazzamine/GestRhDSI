@@ -27,12 +27,14 @@ class Devision
     #[ORM\OneToMany(mappedBy: 'devision', targetEntity: Service::class)]
     private Collection $services;
 
-    #[ORM\ManyToOne(inversedBy: 'devision')]
-    private ?Personnel $personnels_dev = null;
+    #[ORM\OneToMany(mappedBy: 'devision', targetEntity: Personnel::class)]
+    private Collection $personnels;
+
 
     public function __construct()
     {
         $this->services = new ArrayCollection();
+        $this->personnels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,15 +108,36 @@ class Devision
         return $this;
     }
 
-    public function getPersonnelsDev(): ?Personnel
+    /**
+     * @return Collection<int, Personnel>
+     */
+    public function getPersonnels(): Collection
     {
-        return $this->personnels_dev;
+        return $this->personnels;
     }
 
-    public function setPersonnelsDev(?Personnel $personnels_dev): self
+    public function addPersonnel(Personnel $personnel): self
     {
-        $this->personnels_dev = $personnels_dev;
+        if (!$this->personnels->contains($personnel)) {
+            $this->personnels->add($personnel);
+            $personnel->setDevision($this);
+        }
 
         return $this;
     }
+
+    public function removePersonnel(Personnel $personnel): self
+    {
+        if ($this->personnels->removeElement($personnel)) {
+            // set the owning side to null (unless already changed)
+            if ($personnel->getDevision() === $this) {
+                $personnel->setDevision(null);
+            }
+        }
+
+        return $this;
+    }
+    
+
+
 }

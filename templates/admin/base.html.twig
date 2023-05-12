@@ -10,6 +10,7 @@
     <link rel="stylesheet" href={{ asset("admin/assets/fonts/fontawesome-all.min.css")}}>
     <link rel="stylesheet" href={{ asset("admin/assets/css/Contact-FormModal-Contact-Form-with-Google-Map.css")}}>
     <link rel="stylesheet" href={{ asset("admin/assets/css/Download-App-Section.css")}}>
+    <link rel="stylesheet" href={{ asset("alertjs/css/alertify.css")}}>
     <link rel="stylesheet" href={{ asset("admin/assets/css/Drag--Drop-Upload-Form.css")}}>
     <link rel="stylesheet" href={{ asset("admin/assets/css/Navbar-Centered-Brand-icons.css")}}>
     {% block stylesheets %}
@@ -31,7 +32,7 @@
         <ul class="navbar-nav text-light" id="accordionSidebar">
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'admin_dashboard' %}active{% endif %}" href={{ path('admin_dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'empMenu' %}active{% endif %}" href={{ path('empMenu') }}><i class="fas fa-table"></i><span>Employés</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="gestAbsencce.html"><i class="fas fa-window-maximize"></i><span>Absence</span></a></li>
+            <li class="nav-item"><a class="nav-link" {% if app.request.attributes.get('_route') == 'absencemenu' %}active{% endif %}" href={{ path('absencemenu') }}><i class="fas fa-window-maximize"></i><span>Absence</span></a></li>
             <li class="nav-item"><a class="nav-link" href="congeMenu.html"><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
         </ul>
         <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -93,5 +94,10 @@
 <script src={{ asset("admin/assets/js/bs-init.js")}} ></script>
 <script src={{ asset("admin/assets/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
 <script src={{ asset("admin/assets/js/theme.js")}} ></script>
+<script src={{ asset("admin/assets/js/jquery.js")}} ></script>
+<script src={{ asset("alertjs/alertify.js")}} ></script>
+<script src={{ asset("admin/assets/js/infoPersonnel.js")}} ></script>
+<script src={{ asset("admin/assets/js/addEmploye.js")}} ></script>
+<script src={{ asset("admin/assets/js/saisiabsence.js")}} ></script>
 </body>
 </html>

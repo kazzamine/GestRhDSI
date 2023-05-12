@@ -1,0 +1,98 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Ajouter employé{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <form id="contactForm-2" method="post"><input class="form-control" type="hidden" name="Introduction" value="This email was sent from www.mywebsite.com"><input class="form-control" type="hidden" name="subject" value="My Contact Form"><input class="form-control" type="hidden" name="to" value="email@mywebsite.com">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="successfail"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-12" id="message">
+                    <fieldset></fieldset>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">nom</label><input class="form-control" type="text" id="nom" name="nom" placeholder="nom" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">prenom</label><input class="form-control" type="text" id="prenom" name="prenom" placeholder="prenom" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">CIN</label><input class="form-control" type="text" id="CIN" name="CIN" placeholder="CIN" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">PPR</label><input class="form-control" type="text" id="PPR" name="PPR" placeholder="PPR" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">date naissance</label></div><input class="form-control"  id="datenaiss" type="date" style="padding-top: 6px;margin-bottom: 9px;padding-bottom: 3px;margin-top: -16px;" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">adresse</label><input class="form-control" type="text" id="adresse" name="adresse" placeholder="adresse" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">Phone</label><input class="form-control" type="text" id="telephone" name="telephone" placeholder="telephone" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">email</label><input class="form-control" type="email" id="mail" name="mail" placeholder="Email" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3"><label class="form-label">Grade</label><select class="form-select" id="grade" name="grade">
+                                    {% for grade in grades %}
+                                        <option value="{{ grade.getId() }}">
+                                            {{ grade.getNomGrade() }}</option>
+                                    {% endfor %}
+                                </select></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3"><label class="form-label" for="calltime">poste</label><select class="form-select" id="poste" name="poste">
+                                    {% for poste in postes %}
+                                        <option value="{{ poste.getId() }}">
+                                            {{ poste.getNomPoste() }}</option>
+                                    {% endfor %}
+                                </select></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">devision</label></div><select class="form-select" id="devision" name="devision" style="margin-top: -12px;">
+                                <option value="Devision" selected="">Devision</option>
+                                <option value="Devision">Devision</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">service</label></div><select class="form-select" id="service" name="service" style="margin-top: -12px;">
+                                <option value="service" selected="">service</option>
+                                <option value="service">v</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">Sexe</label></div><select class="form-select" id="sexe" name="sexe" style="margin-top: -12px;">
+                                <option value="Femme" selected="">Femme</option>
+                                <option value="Homme">Homme</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">numero de contract</label></div><input class="form-control" type="text" id="numcontract" name="numcontract" placeholder="numero de contrat" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">date d'embauche</label></div><input class="form-control"  id="dateEmb" type="date" style="padding-top: 6px;margin-bottom: 9px;padding-bottom: 3px;margin-top: -16px;" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">date de contract</label></div><input class="form-control"  id="dateContract" type="date" style="padding-top: 6px;margin-bottom: 9px;padding-bottom: 3px;margin-top: -16px;" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">type de contract</label></div><select class="form-select" id="typeContract" name="typeContract" style="margin-top: -12px;">
+                                <option value="cdi" selected="">CDI</option>
+                                <option value="cdd">CDD</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" id="btnaddEmp" type="button">Ajouter</button></div>
+                    <hr>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

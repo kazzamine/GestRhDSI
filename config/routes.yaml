@@ -8,11 +8,17 @@ adminDashboard:
     path: /adminDashboard
     controller: App\Controller\DashboardController::index
 employeMenu:
-    path: /empMenu
+    path: /admin/empMenu
     controller: app\Controller\gestEmploye\empMenuController
 listeEmploye:
-    path: /empMenu/listEmp
+    path: /admin/empMenu/listEmp
     controller: app\Controller\gestEmploye\EmpListeController
 employeInfo:
-    path: /empMenu/listEmp/empInfo
+    path: /admin/empMenu/listEmp/empInfo
     controller: app\Controller\gestEmploye\EmpInfoController
+addEmploye:
+    path: /admin/empMenu/addEmp
+    controller: app\Controller\gestEmploye\addEmpController
+absence:
+    path: /admin/absence/absencemenu
+    controller: app\Controller\absence\AbsenceController
