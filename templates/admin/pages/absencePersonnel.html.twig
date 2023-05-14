@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Absence{% endblock %}
+{% block body %}
+
+    <div class="container-fluid">
+        <h3 class="text-dark mb-1">Liste d'absence</h3>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>date d'absence</th>
+                        <th>justification</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for absence in absences %}
+                    <tr>
+                        <td>{{ absence.getDateAbsence()|date('Y-m-d') }}</td>
+                        <td>{{ absence.getJustification() }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div id="Absence">
+                <h2 id="absenceTitle">ajouter certificat</h2>
+                <div id="Certificats">
+                    <div class="row" id="certContainer">
+                        <form action="">
+                            <div class="col-6">
+                            <label class="form-label" for="">Type de justification :</label>
+                            <select name="typeJust" id="typeJust">
+                                <option value="">--Select--</option>
+                                <option value="malade">malade</option>
+                                <option value="marriage">marriage</option>
+                                <option value="concours">concour</option>
+                                <option value="mort">mort</option>
+                            </select></div>
+                            <div class="col-6">
+                            <label for="" class="form-label">Entrer date debut:</label>
+                            <input type="date" name="datedebutCert" id="datedebutCert" style="width: 150px;font-family: ABeeZee, sans-serif;"> </div>
+                            <div class="col-6">
+                            <label for="" class="form-label">Entrer date fin:      </label>
+                            <input type="date" name="datefinCert" id="datefinCert" style="width: 150px;font-family: ABeeZee, sans-serif;"> </div>
+                            <button type="button" class="btn btn-outline-primary" id="saveCert" value={{ absences[0].getId()}} name="saveCert">Ajouter</button><br><hr><hr>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+{% endblock %}

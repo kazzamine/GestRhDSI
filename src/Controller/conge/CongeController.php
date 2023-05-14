@@ -13,10 +13,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CongeController extends AbstractController
 {
-    #[Route('/admin/conge', name: 'app_conge')]
+    #[Route('/admin/conge/congemenu', name: 'congemenu')]
     public function index(): Response
     {
-        return $this->render('conge/index.html.twig', [
+        return $this->render('admin/pages/congeMenu.html.twig', [
+            'controller_name' => 'CongeController',
+        ]);
+    }
+
+    #[Route('/admin/conge/congemenu/logconge', name: 'logconge')]
+    public function logconge(): Response
+    {
+        return $this->render('admin/pages/logconge.html.twig', [
             'controller_name' => 'CongeController',
         ]);
     }

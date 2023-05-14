@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <h3 class="text-dark mb-4">Saisie d'absence</h3>
         <div class="card shadow">
-            <div class="card-header py-3 center">absence du jour <span id="todaydate"> <strong>{{ "now"|date("Y-m-d") }}</strong></span> </div>
+            <div class="card-header py-3 center">absence du jour <input type="date" name="dateAbsence" id="dateAbsence" style="width: 150px;font-family: ABeeZee, sans-serif;"> </div>
             <div class="card-body" style="text-align: center;">
                 <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                     <table class="table my-0" id="dataTable">
@@ -21,11 +21,11 @@
                         <tbody>
                         {% for personnel in persoListe %}
                         <tr>
-                            <td>{{ personnel.getNomPerso() }} {{ personnel.getPrenomPerso() }}</td>
-                            <td><input type="time" name="date_entre" id="dateEntre" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
-                            <td><input type="time" name="date_sortie" id="dateSortie" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
-                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="absent" class="absent" data-perso_id="{{ personnel.getId() }}" name="absent" value="absent"></td>
-                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="conge" class="conge" data-perso_id="{{ personnel.getId() }}" name="conge" value="conge"></td>
+                            <td>{{ personnel.getNomPerso() }} {{ personnel.getPrenomPerso() }}
+                            <td><input type="time" name="date_entre" id="dateEntre" class="dateEntre" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
+                            <td><input type="time" name="date_sortie" id="dateSortie"  class="dateSortie"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
+                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="absent" class="absent" data-perso-id="{{ personnel.getId() }}" data-perso-id="{{ personnel.getId() }}" name="absent" value="absent"></td>
+                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="conge" class="conge" data-perso-id="{{ personnel.getId() }}" name="conge" value="conge"></td>
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -33,7 +33,7 @@
                         <tr></tr>
                         </tfoot>
                     </table>
-                </div><button class="btn btn-primary text-center" type="button" id="btnabsence" style="text-align: right;padding-right: 7px;">Enregistrer</button>
+                </div><button class="btn btn-primary text-center" type="button" id="btnSaveAbsence" style="text-align: right;padding-right: 7px;">Enregistrer</button>
             </div>
         </div>
     </div>

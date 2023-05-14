@@ -22,3 +22,9 @@ addEmploye:
 absence:
     path: /admin/absence/absencemenu
     controller: app\Controller\absence\AbsenceController
+absencePerso:
+    path: /admin/absence/personnelAbsence
+    controller: app\Controller\absence\AbsencePersonnelController
+conge:
+    path: /admin/conge/congemenu
+    controller:  app\Controller\conge\CongeController

@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Absence{% endblock %}
+{% block body %}
+
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4">Consultation d'absence</h3>
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">Absence annuel</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>nom</th>
+                            <th>prenom</th>
+                            <th>total d'absence</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ab in absence %}
+                        <tr>
+                            <td>{{ ab.persoNom }}</td>
+                            <td>{{ ab.persoPrenom }}</td>
+                            <td>{{ ab.totalAbsence }}</td>
+                            <td><a class="btn btn-primary" role="button" href={{ path('absencePersonnel',{'idperso':ab.persoId}) }}>Detail</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

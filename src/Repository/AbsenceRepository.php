@@ -50,6 +50,57 @@ class AbsenceRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function findByEmployeAbse($empID)
+    {
+        $queryBuilder = $this->createQueryBuilder('absence');
+
+        $queryBuilder->select('count(absence)')
+            ->from(Absence::class, 'a')
+            ->join('a.employe_abse', 'p')
+            ->where('p.id = :empID')
+            ->setParameter('empID', $empID);
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function findByEmployeAbsence($empID)
+    {
+        $queryBuilder = $this->createQueryBuilder('absence');
+
+        $queryBuilder->select('absence')
+            ->from(Absence::class, 'a')
+            ->join('a.employe_abse', 'p')
+            ->where('p.id = :empID')
+            ->setParameter('empID', $empID);
+
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function updateJustification($empId,$startdate,$enddate,$justification)
+    {
+
+        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder
+            ->update(Absence::class, 'a')
+            ->set('a.justification', ':newValue')
+            ->where('a.date_absence >= :startDate')
+            ->andWhere('a.date_absence <= :endDate')
+            ->andWhere('a.employe_abse = :empid')
+            ->setParameter('newValue', $justification)
+            ->setParameter('startDate', $startdate)
+            ->setParameter('endDate', $enddate)
+            ->setParameter('empid',$empId);
+
+        $query = $queryBuilder->getQuery();
+        $affectedRows = $query->execute();
+
+        return $affectedRows;
+    }
 //    /**
 //     * @return Absence[] Returns an array of Absence objects
 //     */

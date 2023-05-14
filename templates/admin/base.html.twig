@@ -33,7 +33,7 @@
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'admin_dashboard' %}active{% endif %}" href={{ path('admin_dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'empMenu' %}active{% endif %}" href={{ path('empMenu') }}><i class="fas fa-table"></i><span>Employés</span></a></li>
             <li class="nav-item"><a class="nav-link" {% if app.request.attributes.get('_route') == 'absencemenu' %}active{% endif %}" href={{ path('absencemenu') }}><i class="fas fa-window-maximize"></i><span>Absence</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="congeMenu.html"><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
+            <li class="nav-item"><a class="nav-link" {% if app.request.attributes.get('_route') == 'congemenu' %}active{% endif %}" href={{ path('congemenu') }}><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
         </ul>
         <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
     </div>
