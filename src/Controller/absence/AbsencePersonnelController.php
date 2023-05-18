@@ -33,7 +33,6 @@ class AbsencePersonnelController extends AbstractController
         $endDate = $data['dateFinCer'];
         $absencePers=$absenceRepo->updateJustification($data['empid'],$startDate,$endDate,$data['justification']);
 
-
         $currentRoute = $request->attributes->get('_route');
         // Redirect to the current route
         $response = new RedirectResponse($urlGenerator->generate($currentRoute));

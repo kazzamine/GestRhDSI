@@ -5,6 +5,7 @@ use App\Entity\Grade;
 use App\Entity\Personnel;
 use App\Entity\Poste;
 use App\Repository\CongeJoursRepository;
+use App\Service\CommonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +41,11 @@ class EmpInfoController extends AbstractController
         if(!empty($empAbsence)){
             $absenceCount=count($empAbsence);
         }
+
+        $commonser=new CommonService();
+        $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
+        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
+
         return $this->render('admin/pages/infoPersonnel.html.twig', [
             'controller_name' => 'employeInfo',
             'empInfo'=>$personnelInfo,
@@ -52,7 +58,7 @@ class EmpInfoController extends AbstractController
     }
 
     #[Route('/empMenu/listEmp/empInfo/updateinfo', name: 'updateinfo', methods: 'POST')]
-    public function updateEmpInfo(Request $request,PersonnelRepository $persoRepo,EntityManagerInterface $entityManager): Response {
+    public function updateEmpInfo(Request $request,EntityManagerInterface $entityManager): Response {
         $data = json_decode($request->getContent(), true);
         $cin=$data['cin'];
         $telephone=$data['telephone'];

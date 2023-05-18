@@ -19,13 +19,15 @@
                         </tr>
                         </thead>
                         <tbody>
+                         {% for log in congeList %}
                         <tr>
-                            <td>Airi Satou</td>
-                            <td>annuel</td>
-                            <td>12/04/2023</td>
-                            <td>14/04/2023</td>
+                            <td>{{ log.getPersonnelDemande().getNomPerso() }}</td>
+                            <td>{{ log.getCongeDemande().getTypeConge() }}</td>
+                            <td>{{ log.getCongeDemande().getDateDebutConge()|date('Y-m-d') }}</td>
+                            <td>{{ log.getCongeDemande().getDateFinConge()|date('Y-m-d') }}</td>
                             <td>2</td>
                         </tr>
+                        {% endfor %}
                         </tbody>
                         <tfoot>
                         <tr></tr>

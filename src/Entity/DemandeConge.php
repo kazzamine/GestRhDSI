@@ -19,6 +19,12 @@ class DemandeConge
     #[ORM\ManyToOne(inversedBy: 'demandeConges')]
     private ?Conge $conge_demande = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $etatDemande = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reasonConge = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +50,30 @@ class DemandeConge
     public function setCongeDemande(?Conge $conge_demande): self
     {
         $this->conge_demande = $conge_demande;
+
+        return $this;
+    }
+
+    public function getEtatDemande(): ?string
+    {
+        return $this->etatDemande;
+    }
+
+    public function setEtatDemande(string $etatDemande): self
+    {
+        $this->etatDemande = $etatDemande;
+
+        return $this;
+    }
+
+    public function getReasonConge(): ?string
+    {
+        return $this->reasonConge;
+    }
+
+    public function setReasonConge(?string $reasonConge): self
+    {
+        $this->reasonConge = $reasonConge;
 
         return $this;
     }

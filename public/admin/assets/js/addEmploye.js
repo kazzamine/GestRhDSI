@@ -94,6 +94,7 @@ $(()=>{
 
     //on click event to update
     $('#btnaddEmp').on("click",()=>{
+
         let dataContract={
             datecontract:dateContract.val(),
             dateEmbauche:dateEmb.val(),
@@ -119,10 +120,9 @@ $(()=>{
            sexe:sexe.val(),
            idcontract:idcontract,
        }
-        let idPerso=addemploye(employeData);
+       let idPerso=addemploye(employeData);
        let congejourData={
            idpersonnel:idPerso
-
        }
         setTimeout(addcongejour(congejourData),3000);
 

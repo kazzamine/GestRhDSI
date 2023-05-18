@@ -32,6 +32,7 @@ $(()=>{
         });
     }
     //get elements
+
     let btnupdate=$('#updateInfo');
     let grade=$('#grade');
     let poste=$('#poste');

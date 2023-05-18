@@ -15,7 +15,7 @@ class ContractController extends AbstractController
     #[Route('/admin/contract', name: 'app_contract')]
     public function index(): Response
     {
-        return $this->render('contract/index.html.twig', [
+        return $this->render('contract/attestationtravaille.html.twig', [
             'controller_name' => 'ContractController',
         ]);
     }

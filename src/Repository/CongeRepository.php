@@ -39,6 +39,15 @@ class CongeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByDate_fin_conge(\DateTimeInterface $todayDate)
+    {
+        $qb=$this->createQueryBuilder('conge');
+        $qb->select('conge')
+            ->where('conge.date_fin_conge >= :todaydate')
+            ->setParameter('todaydate', $todayDate);
+
+        return $qb->getQuery()->getResult();
+    }
 //    /**
 //     * @return Conge[] Returns an array of Conge objects
 //     */
