@@ -94,7 +94,7 @@ class CongeController extends AbstractController
     }
 
     #[Route('/admin/empMenu/conge/declineconge', name: 'declineconge')]
-    public function declineconge(Request $request,EntityManagerInterface $entityManager): Response
+    public function declineconge(Request $request,EntityManagerInterface $entityManager)
     {
         $persoid=$request->query->get('persoid');
         $congeid=$request->query->get('congeid');
@@ -102,7 +102,6 @@ class CongeController extends AbstractController
         $entity[0]->setEtatDemande('refuser');
         $entityManager->flush();
 
-        return new Response('success');
     }
 
 }

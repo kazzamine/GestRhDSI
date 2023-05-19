@@ -4,6 +4,9 @@ controllers:
 index:
     path: /
     controller: App\Controller\LoginController::index
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
 adminDashboard:
     path: /adminDashboard
     controller: App\Controller\DashboardController::index

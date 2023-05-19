@@ -33,7 +33,7 @@
                                 <td class="text-center">{{ log.getCongeDemande().getDateFinConge()|date('Y-m-d') }}</td>
                                 <td class="text-center">2</td>
                                 <td class="text-center"><a class="btn btn-success" href="{{ path('acceptconge',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getPersonnelDemande().getId()})}}" type="button">accepter</a></td>
-                                <td class="text-center"><button class="btn btn-danger" id="btnRefuse" href="{{ path('declineconge',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getPersonnelDemande().getId()})}}" type="button">refuser</button></td>
+                                <td class="text-center"><a class="btn btn-danger" id="btnRefuse" href="{{ path('declineconge',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getPersonnelDemande().getId()})}}" type="button">refuser</a></td>
                             </tr>
                         {% endfor %}
 

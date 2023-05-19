@@ -64,6 +64,9 @@ class Personnel
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Contract $contract = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom_arabic = null;
+
     public function __construct()
     {
 
@@ -264,6 +267,18 @@ class Personnel
     public function setContract(?Contract $contract): self
     {
         $this->contract = $contract;
+
+        return $this;
+    }
+
+    public function getNomArabic(): ?string
+    {
+        return $this->nom_arabic;
+    }
+
+    public function setNomArabic(string $nom_arabic): self
+    {
+        $this->nom_arabic = $nom_arabic;
 
         return $this;
     }

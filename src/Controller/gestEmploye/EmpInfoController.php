@@ -42,9 +42,9 @@ class EmpInfoController extends AbstractController
             $absenceCount=count($empAbsence);
         }
 
-        $commonser=new CommonService();
-        $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
-        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
+//        $commonser=new CommonService();
+//        $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
+//        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
 
         return $this->render('admin/pages/infoPersonnel.html.twig', [
             'controller_name' => 'employeInfo',
