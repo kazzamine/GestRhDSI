@@ -8,26 +8,30 @@ app_logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
 adminDashboard:
-    path: /adminDashboard
+    path: /RhDashboard
     controller: App\Controller\DashboardController::index
 employeMenu:
-    path: /admin/empMenu
+    path: /RH/empMenu
     controller: app\Controller\gestEmploye\empMenuController
 listeEmploye:
-    path: /admin/empMenu/listEmp
+    path: /RH/empMenu/listEmp
     controller: app\Controller\gestEmploye\EmpListeController
 employeInfo:
-    path: /admin/empMenu/listEmp/empInfo
+    path: /RH/empMenu/listEmp/empInfo
     controller: app\Controller\gestEmploye\EmpInfoController
 addEmploye:
-    path: /admin/empMenu/addEmp
+    path: /RH/empMenu/addEmp
     controller: app\Controller\gestEmploye\addEmpController
 absence:
-    path: /admin/absence/absencemenu
+    path: /RH/absence/absencemenu
     controller: app\Controller\absence\AbsenceController
 absencePerso:
-    path: /admin/absence/personnelAbsence
+    path: /RH/absence/personnelAbsence
     controller: app\Controller\absence\AbsencePersonnelController
 conge:
-    path: /admin/conge/congemenu
+    path: /RH/conge/congemenu
     controller:  app\Controller\conge\CongeController
+
+employeDashboard:
+    path: /userDashboard
+    controller: App\Controller\DashboardController

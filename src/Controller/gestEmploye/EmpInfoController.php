@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class EmpInfoController extends AbstractController
 {
-    #[Route('/admin/empMenu/listEmp/empInfo', name: 'empInfo')]
+    #[Route('/RH/empMenu/listEmp/empInfo', name: 'empInfo')]
     public function index(Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
         //get postes
@@ -46,7 +46,7 @@ class EmpInfoController extends AbstractController
 //        $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
 //        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
 
-        return $this->render('admin/pages/infoPersonnel.html.twig', [
+        return $this->render('RH/pages/infoPersonnel.html.twig', [
             'controller_name' => 'employeInfo',
             'empInfo'=>$personnelInfo,
             'absenceNumber'=>$absenceCount,

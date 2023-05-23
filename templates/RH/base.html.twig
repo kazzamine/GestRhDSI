@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Acceuil!{% endblock %}</title>
-    <link rel="icon" href={{ asset("assets/img/images/kingdomMorocco.png") }}>
-    <link rel="stylesheet" href={{ asset("admin/assets/bootstrap/css/bootstrap.min.css")}} >
+    <link rel="icon" href={{ asset("assetsPages/img/images/kingdomMorocco.png") }}>
+    <link rel="stylesheet" href={{ asset("assetsPages/bootstrap/css/bootstrap.min.css")}} >
     <link rel="stylesheet" href={{ asset("https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap")}}>
     <link rel="stylesheet" href={{ asset("https://fonts.googleapis.com/css?family=ABeeZee&amp;display=swap")}}>
-    <link rel="stylesheet" href={{ asset("admin/assets/fonts/fontawesome-all.min.css")}}>
-    <link rel="stylesheet" href={{ asset("admin/assets/css/Contact-FormModal-Contact-Form-with-Google-Map.css")}}>
-    <link rel="stylesheet" href={{ asset("admin/assets/css/Download-App-Section.css")}}>
+    <link rel="stylesheet" href={{ asset("assetsPages/fonts/fontawesome-all.min.css")}}>
+    <link rel="stylesheet" href={{ asset("assetsPages/css/Contact-FormModal-Contact-Form-with-Google-Map.css")}}>
+    <link rel="stylesheet" href={{ asset("assetsPages/css/Download-App-Section.css")}}>
     <link rel="stylesheet" href={{ asset("alertjs/css/alertify.css")}}>
-    <link rel="stylesheet" href={{ asset("admin/assets/css/Drag--Drop-Upload-Form.css")}}>
-    <link rel="stylesheet" href={{ asset("admin/assets/css/Navbar-Centered-Brand-icons.css")}}>
+    <link rel="stylesheet" href={{ asset("assetsPages/css/Drag--Drop-Upload-Form.css")}}>
+    <link rel="stylesheet" href={{ asset("assetsPages/css/Navbar-Centered-Brand-icons.css")}}>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -21,16 +21,16 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="bg-gradient-primary" style="color: var(--bs-black);background: var(--bs-gray-100);">
+<body class="bg-gradient-primary" id="page-top" style="color: var(--bs-black);background: var(--bs-gray-100);">
 <div id="wrapper">
 <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand text-start d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background: url({{ asset('assets/img/images/kingdomMorocco.png')}}) 'width=339' 'height=67'">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand text-start d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background: url({{ asset('assetsPages/img/images/kingdomMorocco.png')}}) 'width=339' 'height=67'">
             <div class="sidebar-brand-icon rotate-n-15"></div>
             <div class="sidebar-brand-text mx-3"></div>
         </a>
         <hr class="sidebar-divider my-0">
         <ul class="navbar-nav text-light" id="accordionSidebar">
-            <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'admin_dashboard' %}active{% endif %}" href={{ path('admin_dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+            <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'rh_dashboard' %}active{% endif %}" href={{ path('rh_dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'empMenu' %}active{% endif %}" href={{ path('empMenu') }}><i class="fas fa-table"></i><span>Employés</span></a></li>
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'absencemenu' %}active{% endif %}" href={{ path('absencemenu') }}><i class="fas fa-window-maximize"></i><span>Absence</span></a></li>
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'congemenu' %}active{% endif %}" href={{ path('congemenu') }}><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
@@ -41,7 +41,7 @@
     <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
     <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button><img src={{ asset("admin/assets/img/images/logoMEN-Sport-fr.png" ) }} width="339" height="67">
+        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button><img src={{ asset("assetsPages/img/images/logoMEN-Sport-fr.png" ) }} width="339" height="67">
             <ul class="navbar-nav flex-nowrap ms-auto">
                 <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
                     <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
@@ -90,14 +90,14 @@
     </footer>
 </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
 </div>
-<script src={{ asset("admin/assets/bootstrap/js/bootstrap.min.js")}} ></script>
-<script src={{ asset("admin/assets/js/bs-init.js")}} ></script>
-<script src={{ asset("admin/assets/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
-<script src={{ asset("admin/assets/js/theme.js")}} ></script>
-<script src={{ asset("admin/assets/js/jquery.js")}} ></script>
+<script src={{ asset("assetsPages/bootstrap/js/bootstrap.min.js")}} ></script>
+<script src={{ asset("assetsPages/js/bs-init.js")}} ></script>
+<script src={{ asset("assetsPages/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
+<script src={{ asset("assetsPages/js/theme.js")}} ></script>
+<script src={{ asset("assetsPages/js/jquery.js")}} ></script>
 <script src={{ asset("alertjs/alertify.js")}} ></script>
-<script src={{ asset("admin/assets/js/infoPersonnel.js")}} ></script>
-<script src={{ asset("admin/assets/js/addEmploye.js")}} ></script>
-<script src={{ asset("admin/assets/js/saisiabsence.js")}} ></script>
+<script src={{ asset("RH/infoPersonnel.js")}} ></script>
+<script src={{ asset("RH/addEmploye.js")}} ></script>
+<script src={{ asset("RH/saisiabsence.js")}} ></script>
 </body>
 </html>

@@ -12,7 +12,7 @@ use DateTimeImmutable;
 
 class ContractController extends AbstractController
 {
-    #[Route('/admin/contract', name: 'app_contract')]
+    #[Route('/RH/contract', name: 'app_contract')]
     public function index(): Response
     {
         return $this->render('contract/attestationtravaille.html.twig', [
@@ -20,7 +20,7 @@ class ContractController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/empMenu/addEmp/addContract', name: 'addContract')]
+    #[Route('/RH/empMenu/addEmp/addContract', name: 'addContract')]
     public function addContract(Request $request,EntityManagerInterface $entityManager): Response
     {
         $data = json_decode($request->getContent(), true);

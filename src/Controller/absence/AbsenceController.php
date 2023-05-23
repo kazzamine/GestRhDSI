@@ -10,24 +10,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AbsenceController extends AbstractController
 {
-    #[Route('/admin/absence/absencemenu', name: 'absencemenu')]
+    #[Route('/RH/absence/absencemenu', name: 'absencemenu')]
     public function index(): Response
     {
-        return $this->render('admin/pages/absencemenu.html.twig', [
+        return $this->render('RH/pages/absencemenu.html.twig', [
             'controller_name' => 'AbsenceController',
         ]);
     }
-    #[Route('/admin/absence/absencemenu/saisiabsence', name: 'saisiabsence')]
+    #[Route('/RH/absence/absencemenu/saisiabsence', name: 'saisiabsence')]
     public function saisiAbsence(PersonnelRepository $persoRep): Response
     {
         $personnelsListe=$persoRep->findAll();
-        return $this->render('admin/pages/saisiabsence.html.twig', [
+        return $this->render('RH/pages/saisiabsence.html.twig', [
             'controller_name' => 'AbsenceController',
             'persoListe'=>$personnelsListe,
         ]);
     }
 
-    #[Route('/admin/absence/absencemenu/ajouterabsence', name: 'ajouterabsence')]
+    #[Route('/RH/absence/absencemenu/ajouterabsence', name: 'ajouterabsence')]
     public function ajouterabsence(PersonnelRepository $persoRep): Response
     {
         $personnelsListe=$persoRep->findAll();
@@ -35,7 +35,7 @@ class AbsenceController extends AbstractController
         return new Response('success');
     }
 
-    #[Route('/admin/absence/absencemenu/consulterAbsence', name: 'consulterAbsence')]
+    #[Route('/RH/absence/absencemenu/consulterAbsence', name: 'consulterAbsence')]
     public function consulterAbsence(PersonnelRepository $persoRep,AbsenceRepository $absenceRepo): Response
     {
         $objects = [];
@@ -53,7 +53,7 @@ class AbsenceController extends AbstractController
             }
             $objects[] = $object;
         }
-        return $this->render('admin/pages/listeAbsence.html.twig', [
+        return $this->render('RH/pages/listeAbsence.html.twig', [
             'controller_name' => 'AbsenceController',
             'persoListe'=>$personnelsListe,
             'absence'=>$objects,

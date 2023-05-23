@@ -22,11 +22,13 @@ class Conge
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_fin_conge = null;
 
-    #[ORM\Column]
-    private ?int $type_conge = null;
+
 
     #[ORM\OneToMany(mappedBy: 'conge_demande', targetEntity: DemandeConge::class)]
     private Collection $demandeConges;
+
+    #[ORM\ManyToOne(inversedBy: 'conges')]
+    private ?TypeConge $typeConge = null;
 
     public function __construct()
     {
@@ -62,17 +64,7 @@ class Conge
         return $this;
     }
 
-    public function getTypeConge(): ?int
-    {
-        return $this->type_conge;
-    }
-
-    public function setTypeConge(int $type_conge): self
-    {
-        $this->type_conge = $type_conge;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, DemandeConge>
@@ -100,6 +92,18 @@ class Conge
                 $demandeConge->setCongeDemande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypeConge(): ?TypeConge
+    {
+        return $this->typeConge;
+    }
+
+    public function setTypeConge(?TypeConge $typeConge): self
+    {
+        $this->typeConge = $typeConge;
 
         return $this;
     }

@@ -18,7 +18,7 @@ use DateTimeImmutable;
 
 class AddEmpController extends AbstractController
 {
-    #[Route('/admin/empMenu/addEmp', name: 'addEmp')]
+    #[Route('/RH/empMenu/addEmp', name: 'addEmp')]
     public function index(PosteRepository $posteRepo,GradeRepository $gradeRepo): Response
     {
         //get postes
@@ -26,14 +26,14 @@ class AddEmpController extends AbstractController
         //get grades
         $grades=$gradeRepo->findAll();
 
-        return $this->render('admin/pages/addEmp.html.twig', [
+        return $this->render('RH/pages/addEmp.html.twig', [
             'controller_name' => 'AddEmpController',
             'postes'=>$postes,
             'grades'=>$grades,
         ]);
     }
 
-    #[Route('/admin/empMenu/addEmp/add', name: 'addEmployee')]
+    #[Route('/RH/empMenu/addEmp/add', name: 'addEmployee')]
     public function addEmp(Request $request,EntityManagerInterface $entityManager): Response
     {
         //retrieve data from ajax

@@ -11,7 +11,7 @@ security:
                 property: email
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
-        ROLE_RH: ROLE_ADMIN
+        ROLE_RH: [ROLE_ADMIN]
         ROLE_SUPER_ADMIN: [ ROLE_RH, ROLE_ALLOWED_TO_SWITCH ]
     firewalls:
         dev:
@@ -27,7 +27,8 @@ security:
 
 
     access_control:
-         - { path: ^/admin, roles: ROLE_RH }
+         - { path: ^/RH, roles: ROLE_RH }
+         - { path: ^/user, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

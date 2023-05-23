@@ -8,10 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EmpMenuController extends AbstractController
 {
-    #[Route('/admin/empMenu', name: 'empMenu')]
+    #[Route('/RH/empMenu', name: 'empMenu')]
     public function index(): Response
     {
-        return $this->render('admin/pages/empMenu.html.twig', [
+        return $this->render('RH/pages/empMenu.html.twig', [
             'controller_name' => 'empMenu',
         ]);
     }

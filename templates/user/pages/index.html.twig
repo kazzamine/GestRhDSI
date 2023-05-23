@@ -1,0 +1,113 @@
+{% extends './user/base.html.twig' %}
+{% block title %}Information{% endblock %}
+{% block body %}
+
+        <div class="container-fluid">
+            <h3 class="text-dark mb-4"><span style="color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) ;">Profile</span></h3>
+            <div class="row mb-3">
+                <div class="col-lg-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3"></div>
+                        <div class="card-body">
+                            <h4 class="small fw-bold">Conge passé<span class="float-end">{{ congepasse }} Jours</span></h4>
+                            <div class="progress progress-sm mb-3">
+                                <div class="progress-bar bg-primary" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="visually-hidden">100%</span></div>
+                            </div>
+                            <h4 class="small fw-bold">Congé restant<span class="float-end">{{ congerest }} Jours</span></h4>
+                            <div class="progress progress-sm mb-3">
+                                <div class="progress-bar bg-primary" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="visually-hidden">100%</span></div>
+                            </div>
+                            <h4 class="small fw-bold">Absence<span class="float-end">{{ absenceNumber }} Jours</span></h4>
+                            <div class="progress progress-sm mb-3">
+                                <div class="progress-bar bg-primary" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="visually-hidden">100%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow mb-3">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">information</p>
+                                </div>
+                                <div class="card-body" style="margin-bottom: -33px;">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" for="username"><strong>nom</strong></label><input class="form-control" type="text" id="txtnom" name="nom" value="{{ empInfo[0].getNomPerso() }}" readonly=""></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" for="email"><strong>prenom</strong></label><input class="form-control" type="text" id="txtprenom" value="{{ empInfo[0].getPrenomPerso() }}" name="prenom" readonly=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" for="first_name"><strong>CIN</strong></label><input class="form-control" type="text" id="txtCIN" value="{{ empInfo[0].getCIN() }}" name="cin" readonly=""></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" for="last_name"><strong>PPR</strong></label><input class="form-control" type="text" id="txtPPR" value="{{ empInfo[0].getPPR() }}" name="ppr" readonly=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3"></div>
+                                    </form>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" for="last_name"><strong>Grade</strong></label><input class="form-control" type="text" id="grade" value="{{ empInfo[0].getGrade().getNomGrade()  }}" name="ppr" readonly=""></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" for="last_name"><strong>Poste</strong></label><input class="form-control" type="text" id="poste" value="{{ empInfo[0].getPoste().getNomPoste() }}" name="ppr" readonly=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>Date Naissance</strong></label><input class="form-control" type="text" id="txtdateNaiss" value="{{ empInfo[0].getDateNaiss()|date('Y-m-d') }}" name="dateNaiss" readonly></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>Adresse</strong></label><input class="form-control" type="text" id="txtAdresse" value="{{ empInfo[0].getAdresse() }}" name="Adresse" readonly></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>Date d'embauche</strong></label><input class="form-control" type="text" id="txtdateEmb" value="{{ empInfo[0].getContract().getDateEmbauche()|date('Y-m-d') }}" name="txtdateEmb" readonly></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>numero de contrat</strong></label><input class="form-control" type="text" id="txtcontrat" value="{{ empInfo[0].getContract().getNumContrat() }}" name="numcontrat" readonly ></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>devision</strong></label><input class="form-control" type="text" id="txtDevision" name="devision" value="{{ empInfo[0].getNomPerso() }}" readonly=""></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>service</strong></label><input class="form-control" type="text" id="txtService" value="{{ empInfo[0].getPrenomPerso() }}" name="service" readonly=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>Email</strong></label><input class="form-control" type="email" id="txtMail" value="{{ empInfo[0].getMail() }}" name="mail" ></div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3"><label class="form-label" ><strong>Telephone</strong></label><input class="form-control" type="text" id="txtPhone" value="{{ empInfo[0].getTelephone() }}" name="phone" ></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col"><button class="btn btn-primary" type="button" id="updateInfo" data-user-id="{{  empInfo[0].getCIN()}}" style="margin-top: -17px;">Modifier</button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="card shadow mb-5"></div>
+        </div>
+
+{% endblock %}

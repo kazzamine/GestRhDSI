@@ -12,20 +12,20 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AbsencePersonnelController extends AbstractController
 {
-    #[Route('/admin/absence/personnelAbsence', name: 'absencePersonnel')]
+    #[Route('/RH/absence/personnelAbsence', name: 'absencePersonnel')]
     public function index(Request $request,AbsenceRepository $absenceRepo): Response
     {
         //get ppr of selected employe
         $empId=$request->query->get('idperso');
 
         $absencePers=$absenceRepo->findByEmployeAbsence($empId);
-        return $this->render('admin/pages/absencePersonnel.html.twig', [
+        return $this->render('RH/pages/absencePersonnel.html.twig', [
             'controller_name' => 'AbsencePersonnelController',
             'absences'=>$absencePers,
         ]);
     }
 
-    #[Route('/admin/absence/personnelAbsence/addcert', name: 'addcertificat')]
+    #[Route('/RH/absence/personnelAbsence/addcert', name: 'addcertificat')]
     public function ajouterCertificat(Request $request,AbsenceRepository $absenceRepo,UrlGeneratorInterface $urlGenerator): Response
     {
         $data = json_decode($request->getContent(), true);

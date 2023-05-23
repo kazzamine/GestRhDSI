@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9 col-lg-12 col-xl-10" style="height: 200px;">
-                <nav class="navbar navbar-light navbar-expand-md py-3" style="background: url({{ asset('assets/img/images/logoMEN-Sport-fr.png')}} ) center no-repeat;height: 100px;">
+                <nav class="navbar navbar-light navbar-expand-md py-3" style="background: url({{ asset('assetsPages/img/images/logoMEN-Sport-fr.png')}} ) center no-repeat;height: 100px;">
                     <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-4"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-4">
                             <ul class="navbar-nav me-auto">
@@ -25,7 +25,7 @@
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-flex">
-                                <div class="flex-grow-1 bg-login-image" style="background: url({{ asset("assets/img/images/kingdomMorocco.png")}}) center / auto no-repeat;display: block;"></div>
+                                <div class="flex-grow-1 bg-login-image" style="background: url({{ asset("assetsPages/img/images/kingdomMorocco.png")}}) center / auto no-repeat;display: block;"></div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -37,7 +37,14 @@
                                         <div class="mb-3"><input class="form-control form-control-user" type="password" id="password" placeholder="Mot de pass" name="_password" required="" autofocus=""></div>
                                         <div class="mb-3">
                                             <div class="custom-control custom-checkbox small"></div>
-                                        </div><button class="btn btn-primary d-block btn-user w-100" type="submit">Connecter</button>
+                                        </div>
+                                        {% if is_granted('ROLE_RH') %}
+                                            <input type="hidden" name="_target_path" value="/RhDashboard">
+                                        {% elseif is_granted('ROLE_USER') %}
+                                            <input type="hidden" name="_target_path" value="/user_dashboard">
+                                        {% endif %}
+                                        <button class="btn btn-primary d-block btn-user w-100" type="submit">Connecter</button>
+
                                         <hr>
                                     </form>
                                     <div class="text-center"><a class="small" href="#">Forgot Password?</a></div>
@@ -50,8 +57,9 @@
             </div>
         </div>
     </div>
-    <script src={{ asset("assets/bootstrap/js/bootstrap.min.js")}} ></script>
-    <script src={{ asset("assets/js/bs-init.js")}} ></script>
-    <script src={{ asset("assets/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
-    <script src={{ asset("assets/js/theme.js") }}></script>
+
+    <script src={{ asset("assetsPages/bootstrap/js/bootstrap.min.js")}} ></script>
+    <script src={{ asset("assetsPages/js/bs-init.js")}} ></script>
+    <script src={{ asset("assetsPages/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
+    <script src={{ asset("assetsPages/js/theme.js") }}></script>
 {% endblock %}

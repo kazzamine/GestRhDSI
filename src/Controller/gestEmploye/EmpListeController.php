@@ -9,13 +9,13 @@ use App\Repository\PersonnelRepository;
 
 class EmpListeController extends AbstractController
 {
-    #[Route('/admin/empMenu/listEmp', name: 'listEmp')]
+    #[Route('/RH/empMenu/listEmp', name: 'listEmp')]
     public function index(PersonnelRepository $persoRep): Response
     {
 
         $personnelsListe=$persoRep->findAll();
 
-        return $this->render('admin/pages/empListe.html.twig', [
+        return $this->render('RH/pages/empListe.html.twig', [
             'controller_name' => 'listeEmploye',
             'persoListe'=>$personnelsListe,
         ]);

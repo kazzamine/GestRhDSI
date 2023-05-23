@@ -17,35 +17,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CongeController extends AbstractController
 {
-    #[Route('/admin/conge/congemenu', name: 'congemenu')]
+    #[Route('/RH/conge/congemenu', name: 'congemenu')]
     public function index(): Response
     {
-        return $this->render('admin/pages/congeMenu.html.twig', [
+        return $this->render('RH/pages/congeMenu.html.twig', [
             'controller_name' => 'CongeController',
         ]);
     }
 
-    #[Route('/admin/conge/congemenu/logconge', name: 'logconge')]
+    #[Route('/RH/conge/congemenu/logconge', name: 'logconge')]
     public function logconge(DemandeCongeRepository $demandeCongeRepo): Response
     {
         $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'accepter']);
-        return $this->render('admin/pages/logconge.html.twig', [
+        return $this->render('RH/pages/logconge.html.twig', [
             'controller_name' => 'CongeController',
             'congeList'=>$congeList,
         ]);
     }
 
-    #[Route('/admin/conge/congemenu/demandeConge', name: 'demandeConge')]
+    #[Route('/RH/conge/congemenu/demandeConge', name: 'demandeConge')]
     public function demandeConge(DemandeCongeRepository $demandeCongeRepo): Response
     {
         $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours']);
-        return $this->render('admin/pages/demandeConge.html.twig', [
+        return $this->render('RH/pages/demandeConge.html.twig', [
             'controller_name' => 'CongeController',
             'congeList'=>$congeList,
         ]);
     }
 
-    #[Route('/admin/empMenu/conge/jourConge/add', name: 'jourConge')]
+    #[Route('/RH/empMenu/conge/jourConge/add', name: 'jourConge')]
     public function addCongeJours(Request $request,EntityManagerInterface $entityManager): Response
     {
         $data = json_decode($request->getContent(), true);
@@ -62,7 +62,7 @@ class CongeController extends AbstractController
         return new Response('success');
     }
 
-    #[Route('/admin/empMenu/conge/acceptconge', name: 'acceptconge')]
+    #[Route('/RH/empMenu/conge/acceptconge', name: 'acceptconge')]
     public function acceptconge(Request $request,EntityManagerInterface $entityManager,CongeJoursRepository $jourRepo,JourFerierRepository $vacanceRepo): Response
     {
         $persoid=$request->query->get('persoid');
@@ -93,7 +93,7 @@ class CongeController extends AbstractController
         return new Response('success');
     }
 
-    #[Route('/admin/empMenu/conge/declineconge', name: 'declineconge')]
+    #[Route('/RH/empMenu/conge/declineconge', name: 'declineconge')]
     public function declineconge(Request $request,EntityManagerInterface $entityManager)
     {
         $persoid=$request->query->get('persoid');

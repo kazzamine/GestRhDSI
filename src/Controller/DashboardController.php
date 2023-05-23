@@ -2,17 +2,22 @@
 
 namespace App\Controller;
 
+use App\Repository\CongeJoursRepository;
 use App\Repository\DemandeCongeRepository;
+use App\Repository\GradeRepository;
+use App\Repository\PosteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CongeRepository;
 use App\Repository\AbsenceRepository;
 use App\Repository\PersonnelRepository;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/admin_dashboard', name: 'admin_dashboard')]
+    #[Route('/rh_dashboard', name: 'rh_dashboard')]
     public function index(CongeRepository $congeRep,AbsenceRepository $absenceRep,DemandeCongeRepository $demandeCongeRepo): Response
     {
         //user info
@@ -34,11 +39,51 @@ class DashboardController extends AbstractController
 
         //demande en attente
         $demandeconge=count($demandeCongeRepo->findBy(['etatDemande'=>'en cours']));
-        return $this->render('admin/pages/index.html.twig', [
+        return $this->render('RH/pages/index.html.twig', [
             'demande'=>$demandeconge,
             'totalConge'=>$congeCount,
             'totalDemandeConge'=>$startDate->format('Y-m-d'),
             'absenceWeek'=>$absenceofTheWeek,
+        ]);
+    }
+
+    #[Route('/user_dashboard', name: 'user_dashboard')]
+    public function userdashboard(TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
+    {
+        //get postes
+        $postes=$posteRepo->findAll();
+        //get grades
+        $grades=$gradeRepo->findAll();
+
+
+
+        // Retrieve the authenticated user's token
+        $token = $tokenStorage->getToken();
+        $username = $token?->getUser()->getUserIdentifier();
+        //get employe info from mail
+        $personnelInfo=$persoRepo->findBy(['mail'=>$username]);
+        //find employe absence
+        $empID=$personnelInfo[0]->getId();
+        $empAbsence=$absenceRepo->findBy(['employe_abse'=>$empID]);
+        //find employe conge
+        $empconge=$congeJourRepo->findBy(['personnelcin'=>$empID]);
+        $congerest=$empconge[0]->getNombreCongeNormal();
+        $congePasse=22-$congerest;
+        $absenceCount=0;
+        if(!empty($empAbsence)){
+            $absenceCount=count($empAbsence);
+        }
+
+//        $commonser=new CommonService();
+//        $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
+//        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
+        return $this->render('user/pages/index.html.twig', [
+            'empInfo'=>$personnelInfo,
+            'absenceNumber'=>$absenceCount,
+            'postes'=>$postes,
+            'grades'=>$grades,
+            'congepasse'=>$congePasse,
+            'congerest'=>$congerest,
         ]);
     }
 }
