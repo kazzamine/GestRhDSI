@@ -3,10 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\PersonnelRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PersonnelRepository::class)]
 class Personnel
@@ -34,8 +33,8 @@ class Personnel
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_naiss = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $mail = null;
+    #[ORM\Column(length: 255,unique: true)]
+    private ?string $mail;
 
     #[ORM\Column(length: 100)]
     private ?string $telephone = null;
@@ -62,7 +61,7 @@ class Personnel
     private ?Devision $devision = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Contract $contract = null;
+    private ?Contract $contract;
 
     #[ORM\Column(length: 255)]
     private ?string $nom_arabic = null;

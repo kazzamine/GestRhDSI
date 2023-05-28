@@ -30,6 +30,9 @@ class Conge
     #[ORM\ManyToOne(inversedBy: 'conges')]
     private ?TypeConge $typeConge = null;
 
+    #[ORM\Column]
+    private ?int $dureeConge = null;
+
     public function __construct()
     {
         $this->demandeConges = new ArrayCollection();
@@ -104,6 +107,18 @@ class Conge
     public function setTypeConge(?TypeConge $typeConge): self
     {
         $this->typeConge = $typeConge;
+
+        return $this;
+    }
+
+    public function getDureeConge(): ?int
+    {
+        return $this->dureeConge;
+    }
+
+    public function setDureeConge(int $dureeConge): self
+    {
+        $this->dureeConge = $dureeConge;
 
         return $this;
     }

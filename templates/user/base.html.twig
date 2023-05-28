@@ -28,9 +28,12 @@
             <ul class="navbar-nav text-light" id="accordionSidebar">
                 <li class="nav-item"></li>
                 <li class="nav-item"><a class="nav-link active" href="{{ path('user_dashboard') }}"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('demander_conge') }}"><i class="far fa-calendar-check"></i><span>Demande de congé</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('demander_conge') }}"><i class="far fa-calendar-check"></i><span>Demander un congé</span></a></li>
                 <li class="nav-item"></li>
-                <li class="nav-item"><a class="nav-link" href="attestation.html"><i class="fas fa-window-maximize"></i><span>demander attestation</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('demande_attestaion') }}"><i class="fas fa-window-maximize"></i><span>demander attestation</span></a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('conge_admin') }}"><i class="fas fa-window-maximize"></i><span>consulter les demandes</span></a></li>
+                {% endif %}
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
         </div>
@@ -69,7 +72,7 @@
                     <div class="d-none d-sm-block topbar-divider"></div>
                     <li class="nav-item dropdown no-arrow">
                         <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">User</span></a>
-                            <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="index.html"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
+                            <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="{{ path('user_dashboard') }}"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Deconnecter</a>
                             </div>
                         </div>

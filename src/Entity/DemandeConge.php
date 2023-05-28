@@ -38,7 +38,6 @@ class DemandeConge
     public function setPersonnelDemande(?Personnel $personnel_demande): self
     {
         $this->personnel_demande = $personnel_demande;
-
         return $this;
     }
 

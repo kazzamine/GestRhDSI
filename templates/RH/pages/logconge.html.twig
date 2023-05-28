@@ -22,10 +22,10 @@
                          {% for log in congeList %}
                         <tr>
                             <td>{{ log.getPersonnelDemande().getNomPerso() }}</td>
-                            <td>{{ log.getCongeDemande().getTypeConge() }}</td>
+                            <td>{{ log.getCongeDemande().getTypeConge().getTypeConge() }}</td>
                             <td>{{ log.getCongeDemande().getDateDebutConge()|date('Y-m-d') }}</td>
                             <td>{{ log.getCongeDemande().getDateFinConge()|date('Y-m-d') }}</td>
-                            <td>2</td>
+                            <td>{{ log.getCongeDemande().getDureeConge()}}</td>
                         </tr>
                         {% endfor %}
                         </tbody>

@@ -6,7 +6,7 @@ $(()=>{
     const addcontract=(data)=>{
         let id=0;
         $.ajax({
-            url: '/admin/empMenu/addEmp/addContract',
+            url: '/RH/empMenu/addEmp/addContract',
             method: 'POST',
             async: false,
             contentType: 'application/json',
@@ -29,7 +29,7 @@ $(()=>{
     const addemploye=(data)=>{
         let persoid=0
         $.ajax({
-            url: '/admin/empMenu/addEmp/add',
+            url: '/RH/empMenu/addEmp/add',
             method: 'POST',
             async: false,
             contentType: 'application/json',
@@ -51,7 +51,7 @@ $(()=>{
     //function to add conge days
     const addcongejour=(data)=>{
         $.ajax({
-            url: '/admin/empMenu/conge/jourConge/add',
+            url: '/RH/empMenu/conge/jourConge/add',
             method: 'POST',
             async: false,
             contentType: 'application/json',
@@ -75,6 +75,8 @@ $(()=>{
     let btnaddEmp=$('#btnaddEmp');
     let nom=$('#nom');
     let prenom=$('#prenom');
+    let arabnom=$('#arabnom');
+    let arabprenom=$('#arabprenom');
     let cin=$('#CIN');
     let ppr=$('#PPR');
     let datenaiss=$('#datenaiss');
@@ -107,6 +109,8 @@ $(()=>{
        let employeData={
            nom:nom.val(),
            prenom:prenom.val(),
+           arabnom:arabnom.val(),
+           arabprenom:arabprenom.val(),
            cin:cin.val(),
            ppr:ppr.val(),
            datenaiss:datenaiss.val(),

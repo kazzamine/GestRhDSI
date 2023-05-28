@@ -19,6 +19,7 @@ class AbsencePersonnelController extends AbstractController
         $empId=$request->query->get('idperso');
 
         $absencePers=$absenceRepo->findByEmployeAbsence($empId);
+
         return $this->render('RH/pages/absencePersonnel.html.twig', [
             'controller_name' => 'AbsencePersonnelController',
             'absences'=>$absencePers,

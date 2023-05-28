@@ -29,6 +29,7 @@ class CongeController extends AbstractController
     public function logconge(DemandeCongeRepository $demandeCongeRepo): Response
     {
         $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'accepter']);
+
         return $this->render('RH/pages/logconge.html.twig', [
             'controller_name' => 'CongeController',
             'congeList'=>$congeList,
@@ -39,12 +40,15 @@ class CongeController extends AbstractController
     public function demandeConge(DemandeCongeRepository $demandeCongeRepo): Response
     {
         $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours']);
+        $commonser=new CommonService();
+
         return $this->render('RH/pages/demandeConge.html.twig', [
             'controller_name' => 'CongeController',
             'congeList'=>$congeList,
         ]);
     }
 
+    // add congeJours for each employe
     #[Route('/RH/empMenu/conge/jourConge/add', name: 'jourConge')]
     public function addCongeJours(Request $request,EntityManagerInterface $entityManager): Response
     {

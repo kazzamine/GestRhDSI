@@ -9,6 +9,7 @@ use App\Repository\PosteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CongeRepository;
 use App\Repository\AbsenceRepository;
@@ -21,7 +22,7 @@ class DashboardController extends AbstractController
     public function index(CongeRepository $congeRep,AbsenceRepository $absenceRep,DemandeCongeRepository $demandeCongeRepo): Response
     {
         //user info
-//        $userSessions = $this->getUser()->getEmail();
+//        $userSessions = $this->getUser()->gemEmail();
 //        $userinfo=$persoRep->findByMail($userSessions);
 //        $userName=$userinfo->getNomPerso().' '.$userinfo->getPrenomPerso();
         //date of the week
@@ -48,14 +49,12 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/user_dashboard', name: 'user_dashboard')]
-    public function userdashboard(TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
+    public function userdashboard(SessionInterface $session,TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
         //get postes
         $postes=$posteRepo->findAll();
         //get grades
         $grades=$gradeRepo->findAll();
-
-
 
         // Retrieve the authenticated user's token
         $token = $tokenStorage->getToken();
@@ -65,9 +64,11 @@ class DashboardController extends AbstractController
         //find employe absence
         $empID=$personnelInfo[0]->getId();
         $empAbsence=$absenceRepo->findBy(['employe_abse'=>$empID]);
+        $session->set('empid', $empID);
         //find employe conge
         $empconge=$congeJourRepo->findBy(['personnelcin'=>$empID]);
         $congerest=$empconge[0]->getNombreCongeNormal();
+        //calcul reste de congé
         $congePasse=22-$congerest;
         $absenceCount=0;
         if(!empty($empAbsence)){

@@ -13,8 +13,9 @@ class CongeJours
     #[ORM\Column]
     private ?int $id = null;
 
+
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Personnel $personnelcin = null;
+    private ?Personnel $personnelcin;
 
     #[ORM\Column]
     private ?int $nombreCongeNormal = null;

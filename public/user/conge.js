@@ -8,12 +8,10 @@ $(()=> {
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function(responseText) {
-                if (responseText == 'success') {
                     alertify
                         .success("demande envoyé avec success", () => {
                             alertify.success();
                         });
-                }
             },
             error: function(response) {
                 console.log(response)

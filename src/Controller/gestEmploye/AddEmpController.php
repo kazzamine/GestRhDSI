@@ -42,6 +42,7 @@ class AddEmpController extends AbstractController
         $personnelObj=new Personnel();
 
         $personnelObj->setNomPerso($data['nom']);
+        $personnelObj->setNomArabic($data['arabnom']);
         $personnelObj->setPrenomPerso($data['prenom']);
         $personnelObj->setCIN($data['cin']);
         $personnelObj->setPPR($data['ppr']);

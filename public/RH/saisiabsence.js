@@ -3,7 +3,7 @@ $(()=>{
     //function to add absence
     const saisiAbsence=()=>{
         $.ajax({
-            url: '/admin/absence/absencemenu/ajouterabsence',
+            url: '/RH/absence/absencemenu/ajouterabsence',
             method: 'POST',
             async: false,
             contentType: 'application/json',
