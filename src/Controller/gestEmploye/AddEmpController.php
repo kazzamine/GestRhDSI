@@ -3,33 +3,40 @@
 namespace App\Controller\gestEmploye;
 
 use App\Entity\Contract;
+use App\Entity\Devision;
 use App\Entity\Grade;
+use App\Entity\Login;
 use App\Entity\Personnel;
-use App\Entity\Poste;
+use App\Entity\Service;
+use App\Repository\DevisionRepository;
 use App\Repository\GradeRepository;
 use App\Repository\PosteRepository;
+use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTimeImmutable;
-
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
 
 class AddEmpController extends AbstractController
 {
     #[Route('/RH/empMenu/addEmp', name: 'addEmp')]
-    public function index(PosteRepository $posteRepo,GradeRepository $gradeRepo): Response
+    public function index(PosteRepository $posteRepo,GradeRepository $gradeRepo,DevisionRepository $devrepo,ServiceRepository $servRepo): Response
     {
-        //get postes
-        $postes=$posteRepo->findAll();
+        //get devision
+        $devisions=$devrepo->findAll();
+        //get services
+        $services=$servRepo->findAll();
         //get grades
         $grades=$gradeRepo->findAll();
 
         return $this->render('RH/pages/addEmp.html.twig', [
             'controller_name' => 'AddEmpController',
-            'postes'=>$postes,
             'grades'=>$grades,
+            'services'=>$services,
+            'devisions'=>$devisions,
         ]);
     }
 
@@ -54,11 +61,12 @@ class AddEmpController extends AbstractController
 
         $grade = $entityManager->getRepository(Grade::class)->find($data['grade']);
         $personnelObj->setGrade($grade);
-
-        $poste = $entityManager->getRepository(Poste::class)->find($data['poste']);
-        $personnelObj->setPoste($poste);
-        $personnelObj->setService(null);
-        $personnelObj->setDevision(null);
+        $devisionId=$data['devision'];
+        $serviceId=$data['service'];
+        $devision=$entityManager->getRepository(Devision::class)->find($devisionId);
+        $service=$entityManager->getRepository(Service::class)->find($serviceId);
+        $personnelObj->setService($service);
+        $personnelObj->setDevision($devision);
 
         $personnelObj->setSexe($data['sexe']);
 
@@ -68,6 +76,21 @@ class AddEmpController extends AbstractController
         $entityManager->persist($personnelObj);
         $entityManager->flush();
 
+        // Create a new login instance
+        $user = new Login();
+        $user->setEmail($data['mail']);
+
+        // Encode the password
+        $factory = new PasswordHasherFactory([
+            'common' => ['algorithm' => 'bcrypt']
+        ]);
+        $passwordHasher = $factory->getPasswordHasher('common');
+
+        $user->setPassword( $passwordHasher->hash($data['ppr']));
+        $user->setRoles(['1'=>'ROLE_USER']);
+        // Persist and flush the user object using your entity manager
+        $entityManager->persist($user);
+        $entityManager->flush();
 
         $response=new Response($personnelObj->getId());
         return $response ;

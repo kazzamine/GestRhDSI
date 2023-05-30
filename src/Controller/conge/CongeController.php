@@ -39,9 +39,7 @@ class CongeController extends AbstractController
     #[Route('/RH/conge/congemenu/demandeConge', name: 'demandeConge')]
     public function demandeConge(DemandeCongeRepository $demandeCongeRepo): Response
     {
-        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours']);
-        $commonser=new CommonService();
-
+        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'accepter']);
         return $this->render('RH/pages/demandeConge.html.twig', [
             'controller_name' => 'CongeController',
             'congeList'=>$congeList,
@@ -71,41 +69,50 @@ class CongeController extends AbstractController
     {
         $persoid=$request->query->get('persoid');
         $congeid=$request->query->get('congeid');
-        $entity = $entityManager->getRepository(DemandeConge::class)->findBy(['personnel_demande'=>$persoid,'id'=>$congeid]);
-        $entity[0]->setEtatDemande('accepter');
-
+        $id=$request->query->get('id');
+        $entity = $entityManager->getRepository(DemandeConge::class)->find($id);
+        $entity->setEtatDemande('accepter');
+        $entityManager->flush();
         $days=[];
         $jourFerier=$vacanceRepo->findAll();
         foreach ($jourFerier as $freeday){
             $days[]=$freeday->getDateDebutJour();
         }
 
+        $getjour=$jourRepo->find(['id'=>$persoid]);
 
-        $getjour=$jourRepo->findBy(['personnelcin'=>$persoid]);
-        $datedebut=$entity[0]->getCongeDemande()->getDateDebutConge();
-        $datefin=$entity[0]->getCongeDemande()->getDateFinConge();
+        $datedebut=$entity->getCongeDemande()->getDateDebutConge();
+        $datefin=$entity->getCongeDemande()->getDateFinConge();
+
         $commonser=new CommonService();
         $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
-        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
-        if($entity[0]->getCongeDemande()->getTypeConge()==1){
-            $getjour[0]->setNombreCongeNormal($daysToRemove);
+
+        if($entity->getCongeDemande()->getTypeConge()->getId()==1){
+            $daysToRemove=$getjour->getNombreCongeNormal()-$totalDays;
+            $getjour->setNombreCongeNormal($daysToRemove);
             $entityManager->flush();
-        }else if($entity[0]->getCongeDemande()->getTypeConge()==2){
-            $getjour[0]->setNombreCongeExcep($daysToRemove);
+
+        }else if($entity->getCongeDemande()->getTypeConge()->getId()==2){
+            $daysToRemove=$getjour->getNombreCongeExcep()-$totalDays;
+            $getjour->setNombreCongeExcep($daysToRemove);
             $entityManager->flush();
         }
-        return new Response('success');
+//        return new Response( implode(' ', $getjour));
+          return  new Response($persoid);
     }
 
     #[Route('/RH/empMenu/conge/declineconge', name: 'declineconge')]
-    public function declineconge(Request $request,EntityManagerInterface $entityManager)
+    public function declineconge(Request $request,EntityManagerInterface $entityManager,DemandeCongeRepository $demandeCongeRepo)
     {
-        $persoid=$request->query->get('persoid');
-        $congeid=$request->query->get('congeid');
-        $entity = $entityManager->getRepository(DemandeConge::class)->findBy(['personnel_demande'=>$persoid,'id'=>$congeid]);
-        $entity[0]->setEtatDemande('refuser');
+        $id=$request->query->get('id');
+        $entity = $entityManager->getRepository(DemandeConge::class)->find($id);
+        $entity->setEtatDemande('refuser');
         $entityManager->flush();
-
+        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'accepter']);
+        return $this->render('RH/pages/demandeConge.html.twig', [
+            'controller_name' => 'CongeController',
+            'congeList'=>$congeList,
+        ]);
     }
 
 }

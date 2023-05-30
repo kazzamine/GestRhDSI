@@ -69,18 +69,7 @@
                                                     {% endfor %}
                                                 </select></div>
                                         </div>
-                                        <div class="col">
-                                            <div class="form-group mb-3"><label class="form-label" for="calltime"><strong>poste</strong></label><select class="form-select" id="poste" name="poste">
-                                                    {% for poste in postes %}
-                                                        <option value="{{ poste.getId() }}"
-                                                             {% if poste.getId()==empInfo[0].getPoste().getID() %}
-                                                                 selected
-                                                                {% endif %}
-                                                               >
-                                                        {{ poste.getNomPoste() }}</option>
-                                                    {% endfor %}
-                                                </select></div>
-                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col">
@@ -104,11 +93,28 @@
                                 <form>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="mb-3"><label class="form-label" ><strong>devision</strong></label><input class="form-control" type="text" id="txtDevision" name="devision" value="{{ empInfo[0].getNomPerso() }}" readonly=""></div>
+                                            <div class="form-group mb-3"><label class="form-label"><strong>Devision</strong></label><select class="form-select" id="devision" name="devision">
+                                                    {% for devision in devisions %}
+                                                        <option value="{{ devision.getId() }}"
+                                                                {% if devision.getId()==empInfo[0].getDevision().getID() %}
+                                                                    selected
+                                                                {% endif %}
+                                                        >
+                                                            {{ devision.getNomDevision() }}</option>
+                                                    {% endfor %}
+                                                </select></div>
                                         </div>
                                         <div class="col">
-                                            <div class="mb-3"><label class="form-label" ><strong>service</strong></label><input class="form-control" type="text" id="txtService" value="{{ empInfo[0].getPrenomPerso() }}" name="service" readonly=""></div>
-                                        </div>
+                                            <div class="form-group mb-3"><label class="form-label"><strong>Service</strong></label><select class="form-select" id="service" name="service">
+                                                    {% for service in services %}
+                                                        <option value="{{ service.getId() }}"
+                                                                {% if service.getId()==empInfo[0].getService().getID() %}
+                                                                    selected
+                                                                {% endif %}
+                                                        >
+                                                            {{ service.getNomService() }}</option>
+                                                    {% endfor %}
+                                                </select></div>                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">

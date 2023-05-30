@@ -6,7 +6,9 @@ use App\Entity\Conge;
 use App\Entity\DemandeConge;
 use App\Entity\Personnel;
 use App\Entity\TypeConge;
+use App\Repository\JourFerierRepository;
 use App\Repository\TypeCongeRepository;
+use App\Service\CommonService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTimeImmutable;
-
 
 class DemanderCongeController extends AbstractController
 {
@@ -30,7 +31,7 @@ class DemanderCongeController extends AbstractController
     }
 
     #[Route('/user/requestConge', name: 'requestConge')]
-    public function requestConge(TypeCongeRepository $typeCongeRepos,SessionInterface $session,Request $request,EntityManagerInterface $entityManager): Response
+    public function requestConge(TypeCongeRepository $typeCongeRepos,SessionInterface $session,Request $request,EntityManagerInterface $entityManager,JourFerierRepository $vacanceRepo): Response
     {
         //retrieve data from ajax
         $data = json_decode($request->getContent(), true);
@@ -42,9 +43,9 @@ class DemanderCongeController extends AbstractController
         $conge->setDateFinConge($datefin);
         $typeconge = $entityManager->getRepository(TypeConge::class)->find($data['typeconge']);
         $conge->setTypeConge($typeconge);
-        //calcul duree du congé
-        $dureeconge=calculjourConge( );
-        $conge->setDureeConge();
+
+
+
         //flushing data to database
         $entityManager->persist($conge);
         $entityManager->flush();
@@ -52,6 +53,7 @@ class DemanderCongeController extends AbstractController
         //adding demandeconge
         $demandeconge=new DemandeConge();
         $demandeconge->setEtatDemande('en cours');
+        $demandeconge->setAdminApprove('en cours');
         $demandeconge->setReasonConge($data['explication']);
         $demandeconge->setCongeDemande($conge);
         //get employe from session

@@ -15,7 +15,6 @@
                             <th><strong>type de congé</strong></th>
                             <th>du</th>
                             <th>au</th>
-                            <th>nbr jour</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,7 +24,6 @@
                             <td>{{ log.getCongeDemande().getTypeConge().getTypeConge() }}</td>
                             <td>{{ log.getCongeDemande().getDateDebutConge()|date('Y-m-d') }}</td>
                             <td>{{ log.getCongeDemande().getDateFinConge()|date('Y-m-d') }}</td>
-                            <td>{{ log.getCongeDemande().getDureeConge()}}</td>
                         </tr>
                         {% endfor %}
                         </tbody>

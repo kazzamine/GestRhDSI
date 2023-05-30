@@ -18,7 +18,6 @@
                             <th class="text-center">reason</th>
                             <th class="text-center">du</th>
                             <th class="text-center">a</th>
-                            <th class="text-center">nombre du jour</th>
                             <th class="text-center">accepter</th>
                             <th class="text-center">refuser</th>
                         </tr>
@@ -31,9 +30,8 @@
                                 <td class="text-center">{{ log.getReasonConge() }}</td>
                                 <td class="text-center">{{ log.getCongeDemande().getDateDebutConge()|date('Y-m-d') }}</td>
                                 <td class="text-center">{{ log.getCongeDemande().getDateFinConge()|date('Y-m-d') }}</td>
-                                <td class="text-center">{{ log.getCongeDemande().getDureeConge()}}</td>
-                                <td class="text-center"><a class="btn btn-success" href="{{ path('acceptconge',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getPersonnelDemande().getId()})}}" type="button">accepter</a></td>
-                                <td class="text-center"><a class="btn btn-danger" id="btnRefuse" href="{{ path('declineconge',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getPersonnelDemande().getId()})}}" type="button">refuser</a></td>
+                                <td class="text-center"><a class="btn btn-success" href="{{ path('acceptdemande',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getCongeDemande().getId(),'id':log.getId()})}}" type="button">accepter</a></td>
+                                <td class="text-center"><a class="btn btn-danger" id="btnRefuse" href="{{ path('declinedemande',{'persoid':log.getPersonnelDemande().getId(),'congeid':log.getCongeDemande().getId(),'id':log.getId()})}}" type="button">refuser</a></td>
                             </tr>
                         {% endfor %}
 

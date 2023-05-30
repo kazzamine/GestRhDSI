@@ -21,10 +21,11 @@ class PdfGeneratorController extends AbstractController
         //     'controller_name' => 'PdfGeneratorController',
         // ]);
         $data = [
-            'name'         => $persoinfo->getNomPerso(),
-            'address'      => 'USA',
-            'mobileNumber' => '000000000',
-            'email'        => 'john.doe@email.com'
+            'nom'         => $persoinfo->getNomPerso(),
+            'prenom'      => $persoinfo->getPrenomPerso(),
+            'grade' => $persoinfo->getGrade()->getNomGrade(),
+            'ppr'        => $persoinfo->getPPR(),
+            'cin'=>$persoinfo->getCIN()
         ];
         $html =  $this->renderView('pdf_generator/attestationtravaille.html.twig', $data);
         $dompdf = new Dompdf();

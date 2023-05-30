@@ -22,7 +22,6 @@
                             <th>PPR</th>
                             <th>CIN</th>
                             <th>grade</th>
-                            <th>poste</th>
                             <th>Consulter</th>
                         </tr>
                         </thead>
@@ -34,11 +33,6 @@
                             <td>{{ personnel.getPPR() }}</td>
                             <td>{{ personnel.getCIN() }}</td>
                             <td>{{ personnel.getGrade().getNomGrade() }}</td>
-                            <td>{% if(personnel.getPoste()==null) %}
-                                {% else %}
-                                    {{  personnel.getPoste().getNomPoste()}}
-                                {% endif %}
-                            </td>
                             <td><a class="btn btn-primary" role="button" href={{ path('employeInfo',{'ppr':personnel.getPPR()}) }}>consulter</a></td>
                         </tr>
                         {% endfor %}

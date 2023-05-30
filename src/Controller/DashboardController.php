@@ -39,7 +39,7 @@ class DashboardController extends AbstractController
         $absenceofTheWeek=$absenceRep->findByDate_absence($startDate,$endDate);
 
         //demande en attente
-        $demandeconge=count($demandeCongeRepo->findBy(['etatDemande'=>'en cours']));
+        $demandeconge=count($demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'accepter']));
         return $this->render('RH/pages/index.html.twig', [
             'demande'=>$demandeconge,
             'totalConge'=>$congeCount,
@@ -75,9 +75,6 @@ class DashboardController extends AbstractController
             $absenceCount=count($empAbsence);
         }
 
-//        $commonser=new CommonService();
-//        $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
-//        $daysToRemove= $getjour[0]->getNombreCongeNormal()-$totalDays;
         return $this->render('user/pages/index.html.twig', [
             'empInfo'=>$personnelInfo,
             'absenceNumber'=>$absenceCount,

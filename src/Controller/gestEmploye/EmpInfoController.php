@@ -1,10 +1,14 @@
 <?php
 namespace App\Controller\gestEmploye;
 
+use App\Entity\Devision;
 use App\Entity\Grade;
 use App\Entity\Personnel;
 use App\Entity\Poste;
+use App\Entity\Service;
 use App\Repository\CongeJoursRepository;
+use App\Repository\DevisionRepository;
+use App\Repository\ServiceRepository;
 use App\Service\CommonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +24,15 @@ use Doctrine\ORM\EntityManagerInterface;
 class EmpInfoController extends AbstractController
 {
     #[Route('/RH/empMenu/listEmp/empInfo', name: 'empInfo')]
-    public function index(Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
+    public function index(Request $request,DevisionRepository $devisionRepo,ServiceRepository $servRepo,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
-        //get postes
-        $postes=$posteRepo->findAll();
+
         //get grades
         $grades=$gradeRepo->findAll();
+        //get devision
+        $devisions=$devisionRepo->findAll();
+        //get service
+        $services=$servRepo->findAll();
         //get ppr of selected employe
         $pprParam=$request->query->get('ppr');
         //find employe by ppr
@@ -50,10 +57,11 @@ class EmpInfoController extends AbstractController
             'controller_name' => 'employeInfo',
             'empInfo'=>$personnelInfo,
             'absenceNumber'=>$absenceCount,
-            'postes'=>$postes,
             'grades'=>$grades,
             'congepasse'=>$congePasse,
-            'congerest'=>$congerest
+            'congerest'=>$congerest,
+            'devisions'=>$devisions,
+            'services'=>$services
         ]);
     }
 
@@ -63,18 +71,23 @@ class EmpInfoController extends AbstractController
         $cin=$data['cin'];
         $telephone=$data['telephone'];
         $adresse=$data['adresse'];
-        $posteId=$data['poste'];
         $gradeId=$data['grade'];
+        $devisionId=$data['devision'];
+        $serviceId=$data['service'];
         $entity = $entityManager->getRepository(Personnel::class)->findBy(['CIN'=>$cin]);
         $response=null;
         if ($entity) {
             $entity[0]->setTelephone($telephone);
             $entity[0]->setAdresse($adresse);
-
-            $poste = $entityManager->getRepository(Poste::class)->find($posteId);
-            $entity[0]->setPoste($poste);
             $grade = $entityManager->getRepository(Grade::class)->find($gradeId);
             $entity[0]->setGrade($grade);
+
+            $devision=$entityManager->getRepository(Devision::class)->find($devisionId);
+            $entity[0]->setDevision($devision);
+
+            $service=$entityManager->getRepository(Service::class)->find($serviceId);
+            $entity[0]->setService($service);
+
             $entityManager->flush();
             $response=new Response('success');
         }

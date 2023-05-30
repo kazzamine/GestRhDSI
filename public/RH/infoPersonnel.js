@@ -35,15 +35,17 @@ $(()=>{
 
     let btnupdate=$('#updateInfo');
     let grade=$('#grade');
-    let poste=$('#poste');
     let telephone=$('#txtPhone');
+    let devision=$('#devision');
+    let service=$('#service');
     let adresse=$('#txtAdresse');
     //on click event to update
     $('#updateInfo').on("click",()=>{
         let data={
             cin:btnupdate.data('user-id'),
             grade:grade.val(),
-            poste:poste.val(),
+            devision:devision.val(),
+            service:service.val(),
             telephone:telephone.val(),
             adresse:adresse.val()
         }

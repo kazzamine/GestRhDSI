@@ -52,23 +52,19 @@
                                 </select></div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group mb-3"><label class="form-label" for="calltime">poste</label><select class="form-select" id="poste" name="poste">
-                                    {% for poste in postes %}
-                                        <option value="{{ poste.getId() }}">
-                                            {{ poste.getNomPoste() }}</option>
-                                    {% endfor %}
-                                </select></div>
-                        </div>
-                        <div class="col-sm-6">
                             <div class="has-feedback form-group mb-3"><label class="form-label" for="">devision</label></div><select class="form-select" id="devision" name="devision" style="margin-top: -12px;">
-                                <option value="Devision" selected="">Devision</option>
-                                <option value="Devision">Devision</option>
+                                {% for devision in devisions %}
+                                    <option value="{{ devision.getId() }}">
+                                        {{ devision.getNomDevision() }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <div class="has-feedback form-group mb-3"><label class="form-label" for="">service</label></div><select class="form-select" id="service" name="service" style="margin-top: -12px;">
-                                <option value="service" selected="">service</option>
-                                <option value="service">v</option>
+                                {% for service in services %}
+                                    <option value="{{ service.getId() }}">
+                                        {{ service.getNomService() }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-sm-6">

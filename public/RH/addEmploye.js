@@ -84,7 +84,6 @@ $(()=>{
     let telephone=$('#telephone');
     let mail=$('#mail');
     let grade=$('#grade');
-    let poste=$('#poste');
     let devision=$('#devision');
     let service=$('#service');
     let sexe=$('#sexe');
@@ -118,7 +117,6 @@ $(()=>{
            telephone:telephone.val(),
            mail:mail.val(),
            grade:grade.val(),
-           poste:poste.val(),
            devision:devision.val(),
            service:service.val(),
            sexe:sexe.val(),

@@ -14,24 +14,20 @@
                             <th>nom</th>
                             <th><strong>Entre&nbsp;</strong></th>
                             <th><strong>Sortie</strong></th>
-                            <th><strong>absence</strong></th>
-                            <th><strong>congé</strong></th>
+                            <th><strong>absent</strong></th>
+
                         </tr>
                         </thead>
                         <tbody>
                         {% for personnel in persoListe %}
                         <tr>
                             <td>{{ personnel.getNomPerso() }} {{ personnel.getPrenomPerso() }}
-                            <td><input type="time" name="date_entre" id="dateEntre" class="dateEntre" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
+                            <td><input type="time" name="date_entre" id="dateEntre" class="dateEntre"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
                             <td><input type="time" name="date_sortie" id="dateSortie"  class="dateSortie"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
-                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="absent" class="absent" data-perso-id="{{ personnel.getId() }}" data-perso-id="{{ personnel.getId() }}" name="absent" value="absent"></td>
-                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="conge" class="conge" data-perso-id="{{ personnel.getId() }}" name="conge" value="conge"></td>
+                            <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="absent" class="absent" data-perso-id="{{ personnel.getId() }}" name="absent" value="absent"></td>
                         </tr>
                         {% endfor %}
                         </tbody>
-                        <tfoot>
-                        <tr></tr>
-                        </tfoot>
                     </table>
                 </div><button class="btn btn-primary text-center" type="button" id="btnSaveAbsence" style="text-align: right;padding-right: 7px;">Enregistrer</button>
             </div>

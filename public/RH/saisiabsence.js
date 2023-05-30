@@ -39,17 +39,16 @@ $(()=>{
     let dateSortie=$('#dateSortie');
 
     $('#btnSaveAbsence').on('click',()=>{
-        if(dateEntre[0].val==''){
-            console.log('absent')
-        }
-        // for (var i = 0; i < absentCB.length; i++) {
-        //     console.log(dateEntre.val())
-        //     if(absentCB[i].checked==true){
-        //         console.log(absentCB[i].dataset.persoId)
-        //     }
+        console.log('clicked')
+        // if(absentCB[0].val()){
+        //     console.log('absent')
         // }
-
-
+        for (var i = 0; i < absentCB.length; i++) {
+            console.log(dateEntre.val())
+            if(absentCB[i].checked==true){
+                console.log(absentCB[i].dataset.persoId)
+            }
+        }
 
     })
 
@@ -57,12 +56,12 @@ $(()=>{
     //ajouter certificat medical
     const addcertificat=(data)=>{
         $.ajax({
-            url: '/admin/absence/personnelAbsence/addcert',
+            url: '/RH/absence/personnelAbsence/addcert',
             method: 'POST',
             async: false,
             contentType: 'application/json',
             data: JSON.stringify(data),
-            success: function(responseText) {
+            success: function() {
                     alertify
                         .success("certificat ajouter avec success", ()=>{
                             alertify.success();
@@ -79,13 +78,13 @@ $(()=>{
         });
     }
 
-    let dateDebutCert=$("#datedebutCert");
-    let dateFinCert=$("#datefinCert");
-    let justification=$("#typeJust");
+    let dateDebutCert=$('#datedebutCert');
+    let datefinCert=$('#datefinCert');
+    let justification=$('#typeJust');
     $('#saveCert').on('click',()=>{
         let data={
-            dateDebutCer:dateDebutCert.val(),
-            dateFinCer:dateFinCert.val(),
+            datedebutCert:dateDebutCert.val(),
+            datefinCert:datefinCert.val(),
             justification:justification.val(),
             empid:$('#saveCert').val()
         }

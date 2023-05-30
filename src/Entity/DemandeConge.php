@@ -25,6 +25,9 @@ class DemandeConge
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reasonConge = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $adminApprove = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,6 +76,18 @@ class DemandeConge
     public function setReasonConge(?string $reasonConge): self
     {
         $this->reasonConge = $reasonConge;
+
+        return $this;
+    }
+
+    public function getAdminApprove(): ?string
+    {
+        return $this->adminApprove;
+    }
+
+    public function setAdminApprove(string $adminApprove): self
+    {
+        $this->adminApprove = $adminApprove;
 
         return $this;
     }

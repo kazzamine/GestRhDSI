@@ -23,6 +23,7 @@ class AbsencePersonnelController extends AbstractController
         return $this->render('RH/pages/absencePersonnel.html.twig', [
             'controller_name' => 'AbsencePersonnelController',
             'absences'=>$absencePers,
+            'empid'=>$empId
         ]);
     }
 
@@ -30,9 +31,9 @@ class AbsencePersonnelController extends AbstractController
     public function ajouterCertificat(Request $request,AbsenceRepository $absenceRepo,UrlGeneratorInterface $urlGenerator): Response
     {
         $data = json_decode($request->getContent(), true);
-        $startDate = $data['dateDebutCer'];
-        $endDate = $data['dateFinCer'];
-        $absencePers=$absenceRepo->updateJustification($data['empid'],$startDate,$endDate,$data['justification']);
+        $startDate = $data['empid'];
+        $endDate = $data['justification'];
+//        $absenceRepo->updateJustification($data['empid'],$startDate,$endDate,$data['justification']);
 
         $currentRoute = $request->attributes->get('_route');
         // Redirect to the current route

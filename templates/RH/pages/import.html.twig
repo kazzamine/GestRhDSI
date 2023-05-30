@@ -1,0 +1,17 @@
+{% extends './RH/base.html.twig'%}
+{% block title %}Absence{% endblock %}
+{% block body %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-1">import</h3>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form action="{{ path('csv_upload') }}" method="POST" enctype="multipart/form-data">
+            {{ form_row(form.file) }}
+            <button type="submit" class="btn btn-success">Upload</button>
+
+        </form>s
+    </div>
+</div>
+{% endblock %}
