@@ -7,11 +7,14 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form action="{{ path('csv_upload') }}" method="POST" enctype="multipart/form-data">
-            {{ form_row(form.file) }}
-            <button type="submit" class="btn btn-success">Upload</button>
 
-        </form>s
+        {{ form_start(form) }}
+        {{ form_widget(form.file) }}
+            <button type="submit" class="btn btn-success">Upload</button>
+        {{ form_end(form) }}
+
+
+
     </div>
 </div>
 {% endblock %}

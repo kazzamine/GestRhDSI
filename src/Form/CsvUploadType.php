@@ -11,14 +11,12 @@ class CsvUploadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('file', FileType::class);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => null,
+        $builder->add('file', FileType::class, [
+            'label' => 'Choose CSV File',
+            'attr' => [
+                'accept' => '.csv',
+            ],
         ]);
     }
+
 }
