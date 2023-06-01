@@ -62,6 +62,7 @@ $(()=>{
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function() {
+
                     alertify
                         .success("certificat ajouter avec success", ()=>{
                             alertify.success();
@@ -71,24 +72,23 @@ $(()=>{
             error: function(response) {
                 console.log(response)
                 alertify
-                    .error("Error de system essayer plus tard", ()=>{
+                    .error("Error!! verifier ce que tu as saisi", ()=>{
                         alertify.error();
                     });
             }
         });
     }
 
-    let dateDebutCert=$('#datedebutCert');
+    let dateDebutCert=$('#datedebutCer');
     let datefinCert=$('#datefinCert');
     let justification=$('#typeJust');
     $('#saveCert').on('click',()=>{
         let data={
-            datedebutCert:dateDebutCert.val(),
+            datedebutCer:dateDebutCert.val(),
             datefinCert:datefinCert.val(),
             justification:justification.val(),
             empid:$('#saveCert').val()
         }
-        console.log(data)
         addcertificat(data);
     })
 

@@ -65,7 +65,7 @@ class CongeController extends AbstractController
     }
 
     #[Route('/RH/empMenu/conge/acceptconge', name: 'acceptconge')]
-    public function acceptconge(Request $request,EntityManagerInterface $entityManager,CongeJoursRepository $jourRepo,JourFerierRepository $vacanceRepo): Response
+    public function acceptconge(DemandeCongeRepository $demandeCongeRepo,Request $request,EntityManagerInterface $entityManager,CongeJoursRepository $jourRepo,JourFerierRepository $vacanceRepo): Response
     {
         $persoid=$request->query->get('persoid');
         $congeid=$request->query->get('congeid');
@@ -97,8 +97,11 @@ class CongeController extends AbstractController
             $getjour->setNombreCongeExcep($daysToRemove);
             $entityManager->flush();
         }
-//        return new Response( implode(' ', $getjour));
-          return  new Response($persoid);
+        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'accepter']);
+        return $this->render('RH/pages/demandeConge.html.twig', [
+            'controller_name' => 'CongeController',
+            'congeList'=>$congeList,
+        ]);
     }
 
     #[Route('/RH/empMenu/conge/declineconge', name: 'declineconge')]

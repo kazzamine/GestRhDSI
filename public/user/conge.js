@@ -25,20 +25,35 @@ $(()=> {
 
     let date_debut=$("#date_debut");
     let date_fin=$("#date_fin");
-    let type_conge=$("#typeconge");
-    let explication=$('#explication');
+    let typeconge=$('#typeconge');
+    let date_debutexcep=$("#date_debutexcep");
 
-    $('#sendRequest').on('click',()=>{
+    $('#btncongeannuel').on('click',()=>{
+
         let data={
             dataDebut:date_debut.val(),
             dateFin:date_fin.val(),
-            typeconge:type_conge.val(),
-            explication:explication.val()
+            type:1,
+            explication:null
+
         }
-        console.log(type_conge.val())
         addconge(data);
+
 
     })
 
+    $('#btncongeexceptionel').on('click',()=>{
+
+        let data={
+            dataDebut:date_debutexcep.val(),
+            dateFin:null,
+            explication:typeconge.val(),
+            type:2
+        }
+        console.log(data)
+
+        addconge(data);
+
+    })
 
 })

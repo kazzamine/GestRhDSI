@@ -26,7 +26,7 @@ class DemandeCongeAdminController extends AbstractController
     }
 
     #[Route('/admin/conge/acceptdemande', name: 'acceptdemande')]
-    public function acceptdemande(Request $request,EntityManagerInterface $entityManager): Response
+    public function acceptdemande(DemandeCongeRepository $demandeCongeRepo,Request $request,EntityManagerInterface $entityManager): Response
     {
 
         $id=$request->query->get('id');
@@ -34,16 +34,26 @@ class DemandeCongeAdminController extends AbstractController
         $entity->setAdminApprove('accepter');
 
         $entityManager->flush();
-        return new Response('success');
+        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'en cours']);
+
+        return $this->render('admin/demandeConge.html.twig', [
+            'controller_name' => 'CongeController',
+            'congeList'=>$congeList,
+        ]);
     }
 
     #[Route('/admin/conge/declinedemande', name: 'declinedemande')]
-    public function declinedemande(Request $request,EntityManagerInterface $entityManager): Response
+    public function declinedemande(DemandeCongeRepository $demandeCongeRepo,Request $request,EntityManagerInterface $entityManager): Response
     {
         $id=$request->query->get('id');
         $entity = $entityManager->getRepository(DemandeConge::class)->find($id);
         $entity->setAdminApprove('refuser');
         $entityManager->flush();
-        return new Response('success');
+        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'en cours']);
+
+        return $this->render('admin/demandeConge.html.twig', [
+            'controller_name' => 'CongeController',
+            'congeList'=>$congeList,
+        ]);
     }
 }

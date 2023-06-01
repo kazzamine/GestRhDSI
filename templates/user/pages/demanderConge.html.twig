@@ -2,48 +2,81 @@
 {% block title %}demander un congé{% endblock %}
 {% block body %}
 
-    <div class="container-fluid">
-        <h3 class="text-dark mb-1">Demande congé</h3>
-    </div>
-    <div class="container">
+        <div class="row d-flex  justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <div class="card">
 
-        <form id="contactForm-2" method="get">
-            <div class="row">
-                <div class="col-md-6">
-                    <div id="successfail"></div>
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">annuel</button>
+                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">exceptionnelle</button>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="container-fluid">
+                                        <h3 class="text-dark mb-1">congé annuel</h3>
+                                    </div>
+                                    <div class="container">
+
+                                        <form id="contactForm-2" method="get">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-11" id="message">
+                                                    <fieldset>
+                                                        <legend></legend>
+                                                    </fieldset>
+                                                    <div class="has-feedback form-group mb-3"><label class="form-label" >Debut du congé</label><input class="form-control" type="date" id="date_debut" name="date_debut"></div>
+                                                    <div class="has-feedback form-group mb-3"><label class="form-label" >Fin du congé</label><input class="form-control" type="date" id="date_fin" name="date_fin"></div>
+                                                    <div class="row">
+
+                                                    </div>
+
+                                                    <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" type="button" id="btncongeannuel">Envoyer&nbsp;<i class="fa fa-chevron-circle-right"></i></button></div>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="container-fluid">
+                                        <h3 class="text-dark mb-1">congé Exceptionnel</h3>
+                                    </div>
+                                    <div class="container">
+
+                                        <form id="contactForm-2" method="get">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-11" id="message">
+                                                    <fieldset>
+                                                        <legend></legend>
+                                                    </fieldset>
+                                                    <div class="has-feedback form-group mb-3"><label class="form-label" for="from_name">Debut du congé</label></div><input class="form-control" type="date" id="date_debutexcep" name="date_debut">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-lg-8">
+                                                            <div class="form-group mb-3"><label class="form-label" for="calltime">type</label><select class="form-select" id="typeconge" name="typeconge">
+                                                                    {% for congeexcep in congeexceps %}
+                                                                        <option value="{{ congeexcep.getId() }}" data-duration="{{ congeexcep.getDuree() }}">
+                                                                            {{ congeexcep.getTypeConge() }}</option>
+                                                                    {% endfor %}
+                                                                </select></div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" type="button" id="btncongeexceptionel">Envoyer&nbsp;<i class="fa fa-chevron-circle-right"></i></button></div>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+
+                                </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-11" id="message">
-                    <fieldset>
-                        <legend></legend>
-                    </fieldset>
-                    <div class="has-feedback form-group mb-3"><label class="form-label" for="from_name">Debut du congé</label></div><input class="form-control" type="date" id="date_debut" name="date_debut">
-                    <div class="has-feedback form-group mb-3"><label class="form-label" for="from_email">Fin du congé</label><input class="form-control" type="date" id="date_fin" name="date_fin"></div>
-                    <div class="row">
-                        <div class="col-sm-6 col-lg-8">
-                            <div class="form-group mb-3"><label class="form-label" for="calltime">type de congé</label><select class="form-select" id="typeconge" name="typeconge">
-                                    {% for typeconge in typesconge %}
-                                        <option value="{{ typeconge.getId() }}">
-                                            {{ typeconge.getTypeConge() }}</option>
-                                    {% endfor %}
-                                </select></div>
-                        </div>
-                        <div class="col-sm-6 col-lg-8">
-                            <div class="form-group mb-3"><label class="form-label" for="calltime">Reason du congé</label><select class="form-select" id="explication-1" name="explication">
-                                    <option value="type1">type1</option>
-                                    <option value="type2">type2</option>
-                                    <option value="type3">type3</option>
-                                </select></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" type="button" id="sendRequest">Envoyer&nbsp;<i class="fa fa-chevron-circle-right"></i></button></div>
-                    <hr>
-                </div>
-            </div>
-        </form>
-    </div>
-
+        </div>
 
 {% endblock %}

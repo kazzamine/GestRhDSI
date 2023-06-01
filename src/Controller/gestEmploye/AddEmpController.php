@@ -4,6 +4,7 @@ namespace App\Controller\gestEmploye;
 
 use App\Entity\Contract;
 use App\Entity\Devision;
+use App\Entity\Direction;
 use App\Entity\Grade;
 use App\Entity\Login;
 use App\Entity\Personnel;
@@ -67,6 +68,8 @@ class AddEmpController extends AbstractController
         $service=$entityManager->getRepository(Service::class)->find($serviceId);
         $personnelObj->setService($service);
         $personnelObj->setDevision($devision);
+        $direction=$entityManager->getRepository(Direction::class)->find(1);
+        $personnelObj->setDirection($direction);
 
         $personnelObj->setSexe($data['sexe']);
 

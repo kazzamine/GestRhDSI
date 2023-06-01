@@ -18,7 +18,7 @@ $(()=>{
             error: function(response) {
                 console.log(response)
                 alertify
-                    .error("une error de system essayer plus tard", ()=>{
+                    .error("verifier les informations entrer", ()=>{
                         alertify.error();
                     });
             }
@@ -40,7 +40,7 @@ $(()=>{
             },
             error: function(response) {
                 alertify
-                    .error("une error de system essayer plus tard", ()=>{
+                    .error("une error verifier et essayer plus tard", ()=>{
                         alertify.error();
                     });
             }

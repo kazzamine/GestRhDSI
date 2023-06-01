@@ -72,8 +72,8 @@ class EmpInfoController extends AbstractController
         $telephone=$data['telephone'];
         $adresse=$data['adresse'];
         $gradeId=$data['grade'];
-        $devisionId=$data['devision'];
-        $serviceId=$data['service'];
+
+//        $serviceId=$data['txtService'];
         $entity = $entityManager->getRepository(Personnel::class)->findBy(['CIN'=>$cin]);
         $response=null;
         if ($entity) {
@@ -82,11 +82,9 @@ class EmpInfoController extends AbstractController
             $grade = $entityManager->getRepository(Grade::class)->find($gradeId);
             $entity[0]->setGrade($grade);
 
-            $devision=$entityManager->getRepository(Devision::class)->find($devisionId);
-            $entity[0]->setDevision($devision);
 
-            $service=$entityManager->getRepository(Service::class)->find($serviceId);
-            $entity[0]->setService($service);
+//            $service=$entityManager->getRepository(Service::class)->find($serviceId);
+//            $entity[0]->setService($service);
 
             $entityManager->flush();
             $response=new Response('success');

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
+use DateTimeImmutable;
 class AbsencePersonnelController extends AbstractController
 {
     #[Route('/RH/absence/personnelAbsence', name: 'absencePersonnel')]
@@ -28,12 +28,14 @@ class AbsencePersonnelController extends AbstractController
     }
 
     #[Route('/RH/absence/personnelAbsence/addcert', name: 'addcertificat')]
-    public function ajouterCertificat(Request $request,AbsenceRepository $absenceRepo,UrlGeneratorInterface $urlGenerator): Response
+    public function ajouterCertificat(Request $request,AbsenceRepository $absenceRepo,UrlGeneratorInterface $urlGenerator)
     {
         $data = json_decode($request->getContent(), true);
-        $startDate = $data['empid'];
-        $endDate = $data['justification'];
-//        $absenceRepo->updateJustification($data['empid'],$startDate,$endDate,$data['justification']);
+
+        $datedebutCert = DateTimeImmutable::createFromFormat('Y-m-d', '2023/06/01');
+        $datefinCert = DateTimeImmutable::createFromFormat('Y-m-d', $data['datefinCert']);
+
+        $absenceRepo->updateJustification($data['empid'],$datedebutCert,$datefinCert,$data['justification']);
 
         $currentRoute = $request->attributes->get('_route');
         // Redirect to the current route
