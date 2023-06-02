@@ -95,38 +95,46 @@ $(()=>{
 
     //on click event to update
     $('#btnaddEmp').on("click",()=>{
-
-        let dataContract={
-            datecontract:dateContract.val(),
-            dateEmbauche:dateEmb.val(),
-            typeContract:typeContract.val(),
-            numcontract:numcontract.val()
+        if(nom.val()===''||prenom.val()===''||numcontract.val()===''||dateContract.val()===''||dateEmb.val()===''||service.val()===''){
+            alertify
+                .warning("il faut remplir tous les champs", ()=>{
+                    alertify.warning();
+                });
+        }else{
+            //add contract
+            let dataContract={
+                datecontract:dateContract.val(),
+                dateEmbauche:dateEmb.val(),
+                typeContract:typeContract.val(),
+                numcontract:numcontract.val()
+            }
+            let idcontract= addcontract(dataContract);
+            //adding employe info
+            let employeData={
+                nom:nom.val(),
+                prenom:prenom.val(),
+                arabnom:arabnom.val(),
+                arabprenom:arabprenom.val(),
+                cin:cin.val(),
+                ppr:ppr.val(),
+                datenaiss:datenaiss.val(),
+                adresse:adresse.val(),
+                telephone:telephone.val(),
+                mail:mail.val(),
+                grade:grade.val(),
+                devision:devision.val(),
+                service:service.val(),
+                sexe:sexe.val(),
+                idcontract:idcontract,
+            }
+            let idPerso=addemploye(employeData);
+            //adding conge jour
+            let congejourData={
+                idpersonnel:idPerso
+            }
+            setTimeout(addcongejour(congejourData),3000);
         }
-        //calling function
 
-       let idcontract= addcontract(dataContract);
-       let employeData={
-           nom:nom.val(),
-           prenom:prenom.val(),
-           arabnom:arabnom.val(),
-           arabprenom:arabprenom.val(),
-           cin:cin.val(),
-           ppr:ppr.val(),
-           datenaiss:datenaiss.val(),
-           adresse:adresse.val(),
-           telephone:telephone.val(),
-           mail:mail.val(),
-           grade:grade.val(),
-           devision:devision.val(),
-           service:service.val(),
-           sexe:sexe.val(),
-           idcontract:idcontract,
-       }
-       let idPerso=addemploye(employeData);
-       let congejourData={
-           idpersonnel:idPerso
-       }
-        setTimeout(addcongejour(congejourData),3000);
 
     })
 

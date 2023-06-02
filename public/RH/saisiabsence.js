@@ -61,8 +61,7 @@ $(()=>{
             async: false,
             contentType: 'application/json',
             data: JSON.stringify(data),
-            success: function() {
-
+            success: function(response) {
                     alertify
                         .success("certificat ajouter avec success", ()=>{
                             alertify.success();
@@ -89,7 +88,15 @@ $(()=>{
             justification:justification.val(),
             empid:$('#saveCert').val()
         }
-        addcertificat(data);
+        if(dateDebutCert.val()==='' || datefinCert.val()==='' || justification.val()===''){
+            alertify
+                .warning("il faut remplir tous les champs", ()=>{
+                    alertify.warning();
+                });
+        }else{
+            addcertificat(data);
+        }
+
     })
 
 

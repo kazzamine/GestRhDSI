@@ -32,15 +32,15 @@ class AbsencePersonnelController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $datedebutCert = DateTimeImmutable::createFromFormat('Y-m-d', '2023/06/01');
+        $datedebutCert = DateTimeImmutable::createFromFormat('Y-m-d', $data['datedebutCer']);
         $datefinCert = DateTimeImmutable::createFromFormat('Y-m-d', $data['datefinCert']);
 
         $absenceRepo->updateJustification($data['empid'],$datedebutCert,$datefinCert,$data['justification']);
 
-        $currentRoute = $request->attributes->get('_route');
-        // Redirect to the current route
-        $response = new RedirectResponse($urlGenerator->generate($currentRoute));
+//        $currentRoute = $request->attributes->get('_route');
+//        // Redirect to the current route
+//        $response = new RedirectResponse($urlGenerator->generate($currentRoute));
 
-        return $response;
+        return new Response('success');
     }
 }
