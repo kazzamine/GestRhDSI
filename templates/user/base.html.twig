@@ -30,7 +30,7 @@
                 <li class="nav-item"><a class="nav-link active" href="{{ path('user_dashboard') }}"><i class="fas fa-user"></i><span>Profile</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('demander_conge') }}"><i class="far fa-calendar-check"></i><span>Demander un congé</span></a></li>
                 <li class="nav-item"></li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('demande_attestaion') }}"><i class="fas fa-window-maximize"></i><span>demander attestation</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('demande_attestaion') }}"><i class="fas fa-window-maximize"></i><span>telecharger attestation</span></a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item"><a class="nav-link" href="{{ path('conge_admin') }}"><i class="fas fa-window-maximize"></i><span>consulter les demandes</span></a></li>
                 {% endif %}

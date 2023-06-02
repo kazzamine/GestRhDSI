@@ -29,30 +29,43 @@ $(()=> {
     let date_debutexcep=$("#date_debutexcep");
 
     $('#btncongeannuel').on('click',()=>{
+        if(date_debut.val()===''||date_fin.val()===''){
+            alertify
+                .warning("il faut remplir tous les champs", ()=>{
+                    alertify.warning();
+                });
+        }else{
+            let data={
+                dataDebut:date_debut.val(),
+                dateFin:date_fin.val(),
+                type:1,
+                explication:null
 
-        let data={
-            dataDebut:date_debut.val(),
-            dateFin:date_fin.val(),
-            type:1,
-            explication:null
-
+            }
+            addconge(data);
         }
-        addconge(data);
+
 
 
     })
 
     $('#btncongeexceptionel').on('click',()=>{
 
-        let data={
-            dataDebut:date_debutexcep.val(),
-            dateFin:null,
-            explication:typeconge.val(),
-            type:2
+        if(date_debutexcep.val()===''){
+            alertify
+                .warning("il faut remplir tous les champs", ()=>{
+                    alertify.warning();
+                });
+        }else{
+            let data={
+                dataDebut:date_debutexcep.val(),
+                dateFin:null,
+                explication:typeconge.val(),
+                type:2
+            }
+            addconge(data);
         }
-        console.log(data)
 
-        addconge(data);
 
     })
 

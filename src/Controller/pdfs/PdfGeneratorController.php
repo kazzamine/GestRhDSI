@@ -17,9 +17,6 @@ class PdfGeneratorController extends AbstractController
     {
         $idperso=$request->query->get('idperso');
         $persoinfo=$persoRepo->find($idperso);
-        // return $this->render('pdf_generator/attestationtravaille.html.twig', [
-        //     'controller_name' => 'PdfGeneratorController',
-        // ]);
         $data = [
             'nom'         => $persoinfo->getNomPerso(),
             'prenom'      => $persoinfo->getPrenomPerso(),
@@ -33,11 +30,62 @@ class PdfGeneratorController extends AbstractController
         $dompdf->render();
 
         return new Response (
-            $dompdf->stream('attestationtravaille', ["Attachment" => false]),
+            $dompdf->stream('attestation-travaille-'.$persoinfo->getNomPerso(), ["Attachment" => false]),
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );
     }
 
+    #[Route('/pdf/attestationquitter', name: 'attestationquitter')]
+    public function attestationQuitter(Request $request,PersonnelRepository $persoRepo): Response
+    {
+        $idperso=$request->query->get('idperso');
+        $persoinfo=$persoRepo->find($idperso);
+
+        $data = [
+            'nom'         => $persoinfo->getNomPerso(),
+            'prenom'      => $persoinfo->getPrenomPerso(),
+            'grade' => $persoinfo->getGrade()->getNomGrade(),
+            'ppr'        => $persoinfo->getPPR(),
+            'cin'=>$persoinfo->getCIN(),
+            'dateemb'=>$persoinfo->getContract()->getDateEmbauche()
+        ];
+        $html =  $this->renderView('pdf_generator/attestationquitter.html.twig', $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        return new Response (
+            $dompdf->stream('attestation-quitter-'.$persoinfo->getNomPerso(), ["Attachment" => false]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
+    }
+
+    #[Route('/pdf/attestationdirection', name: 'attestationdirection')]
+    public function attestationDirection(Request $request,PersonnelRepository $persoRepo): Response
+    {
+        $idperso=$request->query->get('idperso');
+        $persoinfo=$persoRepo->find($idperso);
+
+        $data = [
+            'nom'         => $persoinfo->getNomPerso(),
+            'prenom'      => $persoinfo->getPrenomPerso(),
+            'grade' => $persoinfo->getGrade()->getNomGrade(),
+            'ppr'        => $persoinfo->getPPR(),
+            'cin'=>$persoinfo->getCIN(),
+            'dateemb'=>$persoinfo->getContract()->getDateEmbauche()
+        ];
+        $html =  $this->renderView('pdf_generator/attestationdirection.html.twig', $data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+
+        return new Response (
+            $dompdf->stream('attestation-quitter-'.$persoinfo->getNomPerso(), ["Attachment" => false]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
+    }
 
 }

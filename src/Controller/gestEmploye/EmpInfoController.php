@@ -73,7 +73,7 @@ class EmpInfoController extends AbstractController
         $adresse=$data['adresse'];
         $gradeId=$data['grade'];
 
-//        $serviceId=$data['txtService'];
+        $serviceId=$data['txtService'];
         $entity = $entityManager->getRepository(Personnel::class)->findBy(['CIN'=>$cin]);
         $response=null;
         if ($entity) {
@@ -83,8 +83,8 @@ class EmpInfoController extends AbstractController
             $entity[0]->setGrade($grade);
 
 
-//            $service=$entityManager->getRepository(Service::class)->find($serviceId);
-//            $entity[0]->setService($service);
+            $service=$entityManager->getRepository(Service::class)->find($serviceId);
+            $entity[0]->setService($service);
 
             $entityManager->flush();
             $response=new Response('success');
