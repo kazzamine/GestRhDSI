@@ -1,29 +1,39 @@
 $(()=>{
 
     //function to add absence
-    const saisiAbsence=()=>{
+    const saisiAbsence=(data)=>{
         $.ajax({
             url: '/RH/absence/absencemenu/ajouterabsence',
             method: 'POST',
             async: false,
             contentType: 'application/json',
             data: JSON.stringify(data),
-            success: function(responseText) {
-                if (responseText == 'success') {
+            success: function() {
                     alertify
                         .success("Enregistrer avec success", ()=>{
                             alertify.success();
                         });
-                } else {
-                    console.log(responseText)
-                    alertify
-                        .error('Error essayer plus tard', ()=>{
-                            alertify.error();
-                        });
-                }
             },
             error: function(response) {
-                console.log(response)
+                alertify
+                    .error("Error de system essayer plus tard", ()=>{
+                        alertify.error();
+                    });
+            }
+        });
+    }
+    // saisie entre et sortie
+    const saisieES=(data)=>{
+        $.ajax({
+            url: '/RH/absence/absencemenu/entresortie',
+            method: 'POST',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function() {
+
+            },
+            error: function(response) {
                 alertify
                     .error("Error de system essayer plus tard", ()=>{
                         alertify.error();
@@ -35,18 +45,31 @@ $(()=>{
 
     let absentCB=$('.absent');
     let dateJour=$('#dateAbsence');
-    let dateEntre=$('.dateEntre');
-    let dateSortie=$('#dateSortie');
+    let dateEntre=$('#dateEntre');
+    let dateSortie=$('.dateSortie');
 
     $('#btnSaveAbsence').on('click',()=>{
-        console.log('clicked')
         // if(absentCB[0].val()){
         //     console.log('absent')
         // }
         for (var i = 0; i < absentCB.length; i++) {
-            console.log(dateEntre.val())
+            // console.log(dateEntre.val())
             if(absentCB[i].checked==true){
-                console.log(absentCB[i].dataset.persoId)
+                let data={
+                    idperso:absentCB[i].dataset.persoId,
+                    dateJour:dateJour.val()
+                };
+                saisiAbsence(data);
+
+            }else{
+
+                let data={
+                    idperso:absentCB[i].dataset.persoId,
+                    dateJour:dateJour.val(),
+
+                };
+                console.log(dateEntre.val())
+                // saisieES(data);
             }
         }
 

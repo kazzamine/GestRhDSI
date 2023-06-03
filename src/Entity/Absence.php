@@ -14,9 +14,6 @@ class Absence
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type_absence = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_absence = null;
 
@@ -32,17 +29,6 @@ class Absence
         return $this->id;
     }
 
-    public function getTypeAbsence(): ?string
-    {
-        return $this->type_absence;
-    }
-
-    public function setTypeAbsence(string $type_absence): self
-    {
-        $this->type_absence = $type_absence;
-
-        return $this;
-    }
 
     public function getDateAbsence(): ?\DateTimeInterface
     {

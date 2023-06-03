@@ -42,10 +42,6 @@ class DemanderCongeController extends AbstractController
             $explication=$reason->getTypeconge();
         }
 
-//        if($data['explication']!=null){
-//            $reason=$entityManager->getRepository(CongeExceptionnel::class)->find($data['explication']);
-//        }
-
         //adding new conge
         $conge=new Conge();
         if($data['type']==2){

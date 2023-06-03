@@ -2,11 +2,16 @@
 
 namespace App\Controller\absence;
 
+use App\Entity\Absence;
+use App\Entity\Personnel;
 use App\Repository\AbsenceRepository;
 use App\Repository\PersonnelRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTimeImmutable;
 
 class AbsenceController extends AbstractController
 {
@@ -28,10 +33,35 @@ class AbsenceController extends AbstractController
     }
 
     #[Route('/RH/absence/absencemenu/ajouterabsence', name: 'ajouterabsence')]
-    public function ajouterabsence(PersonnelRepository $persoRep): Response
+    public function ajouterabsence(Request $request,AbsenceRepository $absenceRepo,EntityManagerInterface $entityManager): Response
     {
-        $personnelsListe=$persoRep->findAll();
+        $data = json_decode($request->getContent(), true);
+        $personeel=$entityManager->getRepository(Personnel::class)->find($data['idperso']);
 
+        $absence=new Absence();
+        $absence->setEmployeAbse($personeel);
+        $dateJour=DateTimeImmutable::createFromFormat('Y-m-d', $data['dateJour']);
+
+        $absence->setDateAbsence($dateJour);
+        $absence->setJustification('non justifié');
+        $entityManager->persist($absence);
+        $entityManager->flush();
+        return new Response('success');
+    }
+    #[Route('/RH/absence/absencemenu/entresortie', name: 'entresortie')]
+    public function saisieentresortie(Request $request,AbsenceRepository $absenceRepo,EntityManagerInterface $entityManager): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $personeel=$entityManager->getRepository(Personnel::class)->find($data['idperso']);
+
+        $absence=new Absence();
+        $absence->setEmployeAbse($personeel);
+        $dateJour=DateTimeImmutable::createFromFormat('Y-m-d', $data['dateJour']);
+
+        $absence->setDateAbsence($dateJour);
+        $absence->setJustification('non justifié');
+        $entityManager->persist($absence);
+        $entityManager->flush();
         return new Response('success');
     }
 

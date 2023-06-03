@@ -87,6 +87,7 @@ class CongeController extends AbstractController
         $commonser=new CommonService();
         $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
         $persoinfo=$persRepo->find($persoid);
+        $responssable=$persoinfo->getDevision()->getResponsable()->getNomPerso().' '.$persoinfo->getDevision()->getResponsable()->getPrenomPerso();
         $reason=$entity->getCongeDemande()->getTypeConge()->getConges();
         $data = [
             'nom'         => $persoinfo->getNomPerso(),
@@ -95,7 +96,7 @@ class CongeController extends AbstractController
             'ppr'        => $persoinfo->getPPR(),
             'datedebut'=>$datedebut,
             'datefin'=>$datefin,
-
+            'responsable'=>$responssable,
 
         ];
         $html =  $this->renderView('pdf_generator/congeexceptionel.html.twig', $data);

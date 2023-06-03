@@ -66,20 +66,6 @@ class AbsenceRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
-    public function findByEmployeAbsence($empID)
-    {
-        $queryBuilder = $this->createQueryBuilder('absence');
-
-        $queryBuilder->select('absence')
-            ->from(Absence::class, 'a')
-            ->join('a.employe_abse', 'p')
-            ->where('p.id = :empID')
-            ->setParameter('empID', $empID);
-
-        $query = $queryBuilder->getQuery();
-
-        return $query->getResult();
-    }
 
     public function updateJustification($empId,$startdate,$enddate,$justification)
     {

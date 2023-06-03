@@ -30,6 +30,9 @@ class Devision
     #[ORM\OneToMany(mappedBy: 'devision', targetEntity: Personnel::class)]
     private Collection $personnels;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Personnel $responsable = null;
+
 
     public function __construct()
     {
@@ -134,6 +137,18 @@ class Devision
                 $personnel->setDevision(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getResponsable(): ?Personnel
+    {
+        return $this->responsable;
+    }
+
+    public function setResponsable(?Personnel $responsable): self
+    {
+        $this->responsable = $responsable;
 
         return $this;
     }

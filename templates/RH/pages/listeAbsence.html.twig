@@ -15,7 +15,7 @@
                         <tr>
                             <th>nom</th>
                             <th>prenom</th>
-                            <th>total d'absence</th>
+                            <th>consulter l'absence</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -23,7 +23,6 @@
                         <tr>
                             <td>{{ ab.persoNom }}</td>
                             <td>{{ ab.persoPrenom }}</td>
-                            <td>{{ ab.totalAbsence }}</td>
                             <td><a class="btn btn-primary" role="button" href={{ path('absencePersonnel',{'idperso':ab.persoId}) }}>Detail</a></td>
                         </tr>
                         {% endfor %}
