@@ -62,30 +62,4 @@ class PdfGeneratorController extends AbstractController
         );
     }
 
-    #[Route('/pdf/attestationdirection', name: 'attestationdirection')]
-    public function attestationDirection(Request $request,PersonnelRepository $persoRepo): Response
-    {
-        $idperso=$request->query->get('idperso');
-        $persoinfo=$persoRepo->find($idperso);
-
-        $data = [
-            'nom'         => $persoinfo->getNomPerso(),
-            'prenom'      => $persoinfo->getPrenomPerso(),
-            'grade' => $persoinfo->getGrade()->getNomGrade(),
-            'ppr'        => $persoinfo->getPPR(),
-            'cin'=>$persoinfo->getCIN(),
-            'dateemb'=>$persoinfo->getContract()->getDateEmbauche()
-        ];
-        $html =  $this->renderView('pdf_generator/attestationdirection.html.twig', $data);
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->render();
-
-        return new Response (
-            $dompdf->stream('attestation-quitter-'.$persoinfo->getNomPerso(), ["Attachment" => false]),
-            Response::HTTP_OK,
-            ['Content-Type' => 'application/pdf']
-        );
-    }
-
 }

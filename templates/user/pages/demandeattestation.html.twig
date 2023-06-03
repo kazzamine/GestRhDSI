@@ -11,26 +11,18 @@
                 <h1 class="text-center"></h1>
                 <h1>Attestaion du travail</h1>
                 <ul class="list-group">
-                    <li class="list-group-item" style="margin-top: 29px;"><a class="btn btn-primary" href="{{ path('attestationtravaille',{'idperso':persoid}) }}" type="button">telecharger</a></li>
+                    <li class="list-group-item" style="margin-top: 29px;"><a class="btn btn-primary" href="{{ path('attestationtravaille',{'idperso':persoid}) }}" target="_blank" type="button">telecharger</a></li>
                 </ul>
             </div>
             <div class="col-lg-4 offset-lg-0 dwnldApp" data-aos="fade-up" style="padding-bottom: 55px;padding-top: 36px;margin-bottom: 9px;">
                 <h1 class="text-center"></h1>
                 <h1>Attestaion de quitter le territoire </h1>
                 <ul class="list-group">
-                    <li class="list-group-item" style="margin-top: 29px;"><a class="btn btn-primary" id="attQT" href="{{ path('attestationquitter',{'idperso':persoid}) }}" value="{{ persoid }}" type="button">telecharger</a></li>
+                    <li class="list-group-item" style="margin-top: 29px;"><a class="btn btn-primary" id="attQT" href="{{ path('attestationquitter',{'idperso':persoid}) }}" target="_blank" value="{{ persoid }}" type="button">telecharger</a></li>
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 offset-lg-0 dwnldApp" data-aos="fade-up" style="padding-bottom: 55px;padding-top: 36px;margin-bottom: 9px;">
-                <h1 class="text-center"></h1>
-                <h1>شهادة ادارية</h1>
-                <ul class="list-group">
-                    <li class="list-group-item" style="margin-top: 29px;"><a class="btn btn-primary"  href="{{ path('attestationdirection',{'idperso':persoid}) }}" type="button">telecharger</a></li>
-                </ul>
-            </div>
-        </div>
+
     </div>
 
 {% endblock %}

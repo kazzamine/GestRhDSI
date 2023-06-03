@@ -8,8 +8,10 @@ use App\Entity\Personnel;
 use App\Repository\CongeJoursRepository;
 use App\Repository\DemandeCongeRepository;
 use App\Repository\JourFerierRepository;
+use App\Repository\PersonnelRepository;
 use App\Service\CommonService;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,10 +67,9 @@ class CongeController extends AbstractController
     }
 
     #[Route('/RH/empMenu/conge/acceptconge', name: 'acceptconge')]
-    public function acceptconge(DemandeCongeRepository $demandeCongeRepo,Request $request,EntityManagerInterface $entityManager,CongeJoursRepository $jourRepo,JourFerierRepository $vacanceRepo): Response
+    public function acceptconge(PersonnelRepository $persRepo,Request $request,EntityManagerInterface $entityManager,CongeJoursRepository $jourRepo,JourFerierRepository $vacanceRepo): Response
     {
         $persoid=$request->query->get('persoid');
-        $congeid=$request->query->get('congeid');
         $id=$request->query->get('id');
         $entity = $entityManager->getRepository(DemandeConge::class)->find($id);
         $entity->setEtatDemande('accepter');
@@ -78,7 +79,6 @@ class CongeController extends AbstractController
         foreach ($jourFerier as $freeday){
             $days[]=$freeday->getDateDebutJour();
         }
-
         $getjour=$jourRepo->find(['id'=>$persoid]);
 
         $datedebut=$entity->getCongeDemande()->getDateDebutConge();
@@ -86,22 +86,41 @@ class CongeController extends AbstractController
 
         $commonser=new CommonService();
         $totalDays=$commonser->calculjourConge($datedebut,$datefin,$days);
+        $persoinfo=$persRepo->find($persoid);
+        $reason=$entity->getCongeDemande()->getTypeConge()->getConges();
+        $data = [
+            'nom'         => $persoinfo->getNomPerso(),
+            'prenom'      => $persoinfo->getPrenomPerso(),
+            'grade' => $persoinfo->getGrade()->getNomGrade(),
+            'ppr'        => $persoinfo->getPPR(),
+            'datedebut'=>$datedebut,
+            'datefin'=>$datefin,
 
+
+        ];
+        $html =  $this->renderView('pdf_generator/congeexceptionel.html.twig', $data);
         if($entity->getCongeDemande()->getTypeConge()->getId()==1){
             $daysToRemove=$getjour->getNombreCongeNormal()-$totalDays;
             $getjour->setNombreCongeNormal($daysToRemove);
             $entityManager->flush();
+            $html =  $this->renderView('pdf_generator/congeannuel.html.twig', $data);
 
         }else if($entity->getCongeDemande()->getTypeConge()->getId()==2){
             $daysToRemove=$getjour->getNombreCongeExcep()-$totalDays;
             $getjour->setNombreCongeExcep($daysToRemove);
             $entityManager->flush();
+            $html =  $this->renderView('pdf_generator/congeexceptionel.html.twig', $data);
         }
-        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'accepter']);
-        return $this->render('RH/pages/demandeConge.html.twig', [
-            'controller_name' => 'CongeController',
-            'congeList'=>$congeList,
-        ]);
+        //generate attestation
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+        return new Response (
+            $dompdf->stream('conge-'.$persoinfo->getNomPerso(), ["Attachment" => false]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
     }
 
     #[Route('/RH/empMenu/conge/declineconge', name: 'declineconge')]

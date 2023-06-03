@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+    <title></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <br/>
+    <style type="text/css">
+        <!--
+        p {margin: 0; padding: 0;}	.ft10{font-size:16px;font-family:Times;color:#000000;}
+        .ft11{font-size:19px;font-family:Times;color:#000000;}
+        .ft12{font-size:17px;font-family:Times;color:#000000;}
+        .ft13{font-size:13px;font-family:Times;color:#000000;}
+        .ft14{font-size:15px;font-family:Times;color:#002060;}
+        .ft15{font-size:13px;line-height:17px;font-family:Times;color:#000000;}
+        -->
+    </style>
+</head>
+<body >
+<div id="page1-div" >
+    <img width="100%" height="150" src="target001.png" alt="background image"/>
+    <p style="position:absolute;top:152px;left:65px;white-space:nowrap" class="ft10">&#160; &#160; &#160; &#160; &#160; &#160; Rabat le : {% set currentDate = "now"|date("Y-m-d") %}{{ currentDate }}</p>
+    <p style="position:absolute;top:185px;left:220px;white-space:nowrap" class="ft11"><b>DEMANDE DE CONGE ANNUEL</b></p>
+    <p style="position:absolute;top:280px;left:92px;white-space:nowrap" class="ft10">NOM COMPLET : {{ nom }} {{ prenom }}</p>
+    <p style="position:absolute;top:320px;left:92px;white-space:nowrap" class="ft10">GRADE : {{ grade }}</p>
+    <p style="position:absolute;top:360px;left:92px;white-space:nowrap" class="ft10">PPR : {{ ppr }}</p>
+    <p style="position:absolute;top:400px;left:92px;white-space:nowrap" class="ft10">DE : {{ datedebut|date("Y-m-d")}} &#160; &#160; &#160; &#160; &#160; &#160;  A :{{ datefin|date("Y-m-d") }}</p>
+    <p style="position:absolute;top:560px;left:92px;white-space:nowrap" class="ft10">La signature de la personne concernée: {{ nom }} {{ prenom }} ................................</p>
+    <p style="position:absolute;top:640px;left:92px;white-space:nowrap" class="ft10">Signature du responsable direct:........................................</p>
+    <p style="position:absolute;top:740px;left:92px;white-space:nowrap" class="ft10">Signature du directrice:....................................................</p>
+    <p style="position:absolute;top:900px;left:133px;white-space:nowrap" class="ft14"><b>Ministère de l’Education Nationale du préscolaire et des sports</b></p>
+    <p style="position:absolute;top:920px;left:193px;white-space:nowrap" class="ft14"><b>Direction du Système d’information</b></p>
+    <p style="position:absolute;top:940px;left:86px;white-space:nowrap" class="ft14"><b>9Avenu Ibn Rochd – Haut&#160;Agdal - Rabat •&#160;Tél. :05 37 77 55 54 / 35 52 • Fax : 05 37 77 69 89</b></p>
+</div>
+</body>
+</html>
