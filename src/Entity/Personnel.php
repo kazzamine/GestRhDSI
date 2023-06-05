@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PersonnelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -66,9 +68,12 @@ class Personnel
     #[ORM\Column(length: 255)]
     private ?string $nom_arabic = null;
 
+    #[ORM\OneToMany(mappedBy: 'receivant', targetEntity: Notifications::class)]
+    private Collection $notifications;
+
     public function __construct()
     {
-
+        $this->notifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,6 +283,36 @@ class Personnel
     public function setNomArabic(string $nom_arabic): self
     {
         $this->nom_arabic = $nom_arabic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notifications>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notifications $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setReceivant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notifications $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getReceivant() === $this) {
+                $notification->setReceivant(null);
+            }
+        }
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Controller\conge;
 
 use App\Entity\CongeJours;
 use App\Entity\DemandeConge;
+use App\Entity\Notifications;
 use App\Entity\Personnel;
 use App\Repository\CongeJoursRepository;
 use App\Repository\DemandeCongeRepository;
@@ -112,6 +113,12 @@ class CongeController extends AbstractController
             $entityManager->flush();
             $html =  $this->renderView('pdf_generator/congeexceptionel.html.twig', $data);
         }
+        //sending notification
+        $notify=new Notifications();
+        $notify->setReceivant($persoinfo);
+        $notify->setContent('Votre demande de congé a été accepter veuillez le recuperer demain');
+        $entityManager->persist($notify);
+        $entityManager->flush();
         //generate attestation
 
         $dompdf = new Dompdf();

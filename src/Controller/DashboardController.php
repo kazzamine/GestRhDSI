@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\CongeJoursRepository;
 use App\Repository\DemandeCongeRepository;
 use App\Repository\GradeRepository;
+use App\Repository\NotificationsRepository;
 use App\Repository\PosteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +50,7 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/user_dashboard', name: 'user_dashboard')]
-    public function userdashboard(SessionInterface $session,TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
+    public function userdashboard(NotificationsRepository $notifRepo,SessionInterface $session,TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
         //get postes
         $postes=$posteRepo->findAll();
@@ -74,6 +75,7 @@ class DashboardController extends AbstractController
         if(!empty($empAbsence)){
             $absenceCount=count($empAbsence);
         }
+        $notification=$notifRepo->findBy(['receivant'=>$empID]);
 
         return $this->render('user/pages/index.html.twig', [
             'empInfo'=>$personnelInfo,
@@ -82,6 +84,7 @@ class DashboardController extends AbstractController
             'grades'=>$grades,
             'congepasse'=>$congePasse,
             'congerest'=>$congerest,
+            'notification'=>$notification,
         ]);
     }
 }
