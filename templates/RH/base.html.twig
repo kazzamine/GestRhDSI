@@ -32,7 +32,12 @@
         <ul class="navbar-nav text-light" id="accordionSidebar">
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'rh_dashboard' %}active{% endif %}" href={{ path('rh_dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'empMenu' %}active{% endif %}" href={{ path('empMenu') }}><i class="fas fa-table"></i><span>Employés</span></a></li>
-            <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'absencemenu' %}active{% endif %}" href={{ path('absencemenu') }}><i class="fas fa-window-maximize"></i><span>Absence</span></a></li>
+            {% if is_granted('ROLE_RH') %}
+                <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'absencemenu' %}active{% endif %}" href={{ path('absencemenu') }}><i class="fas fa-window-maximize"></i><span>Absence</span></a></li>
+            {% elseif is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'gererdivision' %}active{% endif %}" href={{ path('gererdivision') }}><i class="fas fa-window-maximize"></i><span>Gerer l'administration</span></a></li>
+            {% endif %}
+
             <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'congemenu' %}active{% endif %}" href={{ path('congemenu') }}><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
         </ul>
         <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

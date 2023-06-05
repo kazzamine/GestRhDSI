@@ -19,13 +19,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class DashboardController extends AbstractController
 {
+    //RH dashboard
     #[Route('/rh_dashboard', name: 'rh_dashboard')]
     public function index(CongeRepository $congeRep,AbsenceRepository $absenceRep,DemandeCongeRepository $demandeCongeRepo): Response
     {
-        //user info
-//        $userSessions = $this->getUser()->gemEmail();
-//        $userinfo=$persoRep->findByMail($userSessions);
-//        $userName=$userinfo->getNomPerso().' '.$userinfo->getPrenomPerso();
+
         //date of the week
         $now = new \DateTimeImmutable();
         $currentDate = new \DateTime();
@@ -49,6 +47,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    //user/admin dashbaord
     #[Route('/user_dashboard', name: 'user_dashboard')]
     public function userdashboard(NotificationsRepository $notifRepo,SessionInterface $session,TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
@@ -85,6 +84,34 @@ class DashboardController extends AbstractController
             'congepasse'=>$congePasse,
             'congerest'=>$congerest,
             'notification'=>$notification,
+        ]);
+    }
+
+    //super admin dashboard
+    #[Route('/super-admin/dashboard', name: 'super-admin-dashboard')]
+    public function SAdashboard(CongeRepository $congeRep,AbsenceRepository $absenceRep,DemandeCongeRepository $demandeCongeRepo): Response
+    {
+
+        //date of the week
+        $now = new \DateTimeImmutable();
+        $currentDate = new \DateTime();
+        $today = $currentDate->format('Y-m-d');
+        $dateTime = \DateTime::createFromFormat('Y-m-d', $today);
+        //total des personnes en congé
+        $congeList=$congeRep->findByDate_fin_conge($dateTime);
+        $congeCount=count($congeList);
+
+        $startDate=$now->modify('this week')->setTime(0, 0, 0);
+        $endDate=$now->modify('next Sunday')->setTime(23, 59, 59);
+        $absenceofTheWeek=$absenceRep->findByDate_absence($startDate,$endDate);
+
+        //demande en attente
+        $demandeconge=count($demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'accepter']));
+        return $this->render('superadmin/pages/index.html.twig', [
+            'demande'=>$demandeconge,
+            'totalConge'=>$congeCount,
+            'totalDemandeConge'=>$startDate->format('Y-m-d'),
+            'absenceWeek'=>$absenceofTheWeek,
         ]);
     }
 }

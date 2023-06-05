@@ -1,0 +1,116 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}devision info{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4"></h3>
+        <div class="row mb-3">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow mb-3">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">information</p>
+                            </div>
+                            <div class="card-body" style="margin-bottom: -33px;">
+                                <form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" for="username"><strong>nom</strong></label><input class="form-control" type="text" id="txtnom" name="nom" value="{{ empInfo[0].getNomPerso() }}" ></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" for="email"><strong>prenom</strong></label><input class="form-control" type="text" id="txtprenom" value="{{ empInfo[0].getPrenomPerso() }}" name="prenom" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" for="first_name"><strong>CIN</strong></label><input class="form-control" type="text" id="txtCIN" value="{{ empInfo[0].getCIN() }}" name="cin" ></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" for="last_name"><strong>PPR</strong></label><input class="form-control" type="text" id="txtPPR" value="{{ empInfo[0].getPPR() }}" name="ppr" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3"></div>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group mb-3"><label class="form-label"><strong>Grade</strong></label><select class="form-select" id="grade" name="grade">
+                                                    {% for grade in grades %}
+                                                        <option value="{{ grade.getId() }}"
+                                                                {% if grade.getId()==empInfo[0].getGrade().getID() %}
+                                                                    selected
+                                                                {% endif %}
+                                                        >
+                                                            {{ grade.getNomGrade() }}</option>
+                                                    {% endfor %}
+                                                </select></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" ><strong>Date Naissance</strong></label><input class="form-control" type="text" id="txtdateNaiss" value="{{ empInfo[0].getDateNaiss()|date('Y-m-d') }}" name="dateNaiss" readonly=""></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" ><strong>Adresse</strong></label><input class="form-control" type="text" id="txtAdresse" value="{{ empInfo[0].getAdresse() }}" name="Adresse" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" ><strong>Date d'embauche</strong></label><input class="form-control" type="text" id="txtdateEmb" value="{{ empInfo[0].getContract().getDateEmbauche()|date('Y-m-d') }}" name="txtdateEmb" readonly=""></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" ><strong>numero de contrat</strong></label><input class="form-control" type="text" id="txtcontrat" value="{{ empInfo[0].getContract().getNumContrat() }}" name="numcontrat" ></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group mb-3"><label class="form-label"><strong>Devision</strong></label><select class="form-select" id="txtDevision" name="txtDevision">
+                                                    {% for devision in devisions %}
+                                                        <option value="{{ devision.getId() }}"
+                                                                {% if devision.getId()==empInfo[0].getDevision().getID() %}
+                                                                    selected
+                                                                {% endif %}
+                                                        >
+                                                            {{ devision.getNomDevision() }}</option>
+                                                    {% endfor %}
+                                                </select></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group mb-3"><label class="form-label"><strong>Service</strong></label><select class="form-select" id="txtService" name="txtService">
+                                                    {% for service in services %}
+                                                        <option value="{{ service.getId() }}"
+                                                                {% if service.getId()==empInfo[0].getService().getID() %}
+                                                                    selected
+                                                                {% endif %}
+                                                        >
+                                                            {{ service.getNomService() }}</option>
+                                                    {% endfor %}
+                                                </select></div>                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" ><strong>Email</strong></label><input class="form-control" type="email" id="txtMail" value="{{ empInfo[0].getMail() }}" name="mail" ></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3"><label class="form-label" ><strong>Telephone</strong></label><input class="form-control" type="text" id="txtPhone" value="{{ empInfo[0].getTelephone() }}" name="phone" ></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col"><button class="btn btn-primary" type="button" id="updateInfo" data-user-id="{{  empInfo[0].getCIN()}}" style="margin-top: -17px;">Modifier</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

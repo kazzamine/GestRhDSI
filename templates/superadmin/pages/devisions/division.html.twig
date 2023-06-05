@@ -1,0 +1,50 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}devisions{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark text-center">Gerer l'administration</h3>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3>la direction</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-primary shadow">
+                        <div class="card-body"><a class="btn btn-primary" role="button" href={{ path('adddirection') }}>ajouter direction&nbsp;</a>
+                            <p class="m-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-success shadow">
+                        <div class="card-body"><a class="btn btn-success link-light" role="button" href={{ path('ajouterdevision') }}>modifier les informations du direction</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h3 >devisions et services</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-primary shadow">
+                        <div class="card-body"><a class="btn btn-primary" role="button" href={{ path('listedevisions') }}>Liste des devisions&nbsp;</a>
+                            <p class="m-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card text-white bg-success shadow">
+                        <div class="card-body"><a class="btn btn-success link-light" role="button" href={{ path('ajouterdevision') }}>ajouter une devisions</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

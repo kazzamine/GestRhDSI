@@ -18,9 +18,6 @@ class Devision
     #[ORM\Column(length: 255)]
     private ?string $nom_devision = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
-    private ?string $type_devision = null;
-
     #[ORM\ManyToOne(inversedBy: 'devisions')]
     private ?Direction $direction = null;
 
@@ -53,18 +50,6 @@ class Devision
     public function setNomDevision(string $nom_devision): self
     {
         $this->nom_devision = $nom_devision;
-
-        return $this;
-    }
-
-    public function getTypeDevision(): ?string
-    {
-        return $this->type_devision;
-    }
-
-    public function setTypeDevision(?string $type_devision): self
-    {
-        $this->type_devision = $type_devision;
 
         return $this;
     }

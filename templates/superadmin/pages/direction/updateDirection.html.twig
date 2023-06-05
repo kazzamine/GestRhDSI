@@ -1,0 +1,44 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}modifier Direction{% endblock %}
+{% block body %}
+    <div class="container" id="servicess">
+        <form id="contactForm-2" method="post"><input class="form-control" type="hidden" name="Introduction" value="This email was sent from www.mywebsite.com"><input class="form-control" type="hidden" name="subject" value="My Contact Form"><input class="form-control" type="hidden" name="to" value="email@mywebsite.com">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="successfail"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-12" id="message">
+                    <fieldset></fieldset>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">nom devision</label><input class="form-control" type="text" id="nomdevision" name="nomdevision" placeholder="nom devision" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3"><label class="form-label">Direction</label><select class="form-select" id="direction" name="direction">
+                                    {% for direction in directions %}
+                                        <option value="{{ direction.getId() }}">
+                                            {{ direction.getNomDirection() }}</option>
+                                    {% endfor %}
+                                </select></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="">responsable</label></div><select class="form-select" id="responsable" name="responsable" style="margin-top: -12px;">
+                                {% for respo in respos %}
+                                    <option value="{{ respo.getId() }}">
+                                        {{ respo.getNomPerso() }} {{ respo.getPrenomPerso() }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" id="btnaddDevision" type="button">Ajouter</button></div>
+                    <hr>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

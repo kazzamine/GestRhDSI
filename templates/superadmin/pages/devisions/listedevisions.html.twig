@@ -1,0 +1,46 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %} Liste devisons{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4">devisons</h3>
+
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">Infos des devisons</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 col-lg-12">
+                        <div class="text-md-end dataTables_filter" id="dataTable_filter"><label class="form-label"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search"></label></div>
+                    </div>
+                </div>
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>nom</th>
+                            <th>responsable</th>
+                            <th>total des employés</th>
+                            <th>modifier</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for devision in devisions %}
+                            <tr>
+                                <td>{{ devision.getNomDevision() }}</td>
+                                <td>{{ devision.getResponsable().getNomPerso()}} {{ devision.getResponsable().getPrenomPerso()}}</td>
+                                <td>{{ devision.getPersonnels()|length }}</td>
+                                <td><a class="btn btn-primary" role="button" href={{ path('gererservice',{'idDev':devision.getId()}) }}>consulter</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

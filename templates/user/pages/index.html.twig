@@ -1,7 +1,11 @@
 {% extends './user/base.html.twig' %}
 {% block title %}Information{% endblock %}
 {% block body %}
-
+    {% for notif in notification %}
+        <div><span class="small text-gray-500">Gestionnaire RH</span>
+            <p>{{ notif.getContent() }}</p>
+        </div>
+    {% endfor %}
         <div class="container-fluid">
             <h3 class="text-dark mb-4"><span style="color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) ;">Profile</span></h3>
             <div class="row mb-3">

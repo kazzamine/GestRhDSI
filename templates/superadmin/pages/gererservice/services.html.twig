@@ -1,0 +1,83 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %} Services{% endblock %}
+{% block body %}
+    <div class="row d-flex  justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">liste des services</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">ajouter un nouveau service</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="container-fluid">
+                            <h3 class="text-dark mb-1">Infos des Services</h3>
+                        </div>
+                        <div class="container">
+
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>nom du service</th>
+                                        <th>total des employés</th>
+                                        <th>supprimer</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for service in services %}
+                                        <tr>
+                                            <td>{{ service.getNomService() }}</td>
+                                            <td>{{ service.getPersonnelsSer()|length }}</td>
+                                            <td><a class="btn btn-danger" role="button" href={{ path('deleteservice',{'idSer':service.getId()}) }}>supprimer</a></td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="container-fluid">
+                            <h3 class="text-dark mb-1">ajouter service</h3>
+                        </div>
+                        <div class="container">
+
+                            <form id="contactForm-2" method="get">
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-11" id="message">
+                                        <div class="row">
+                                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_name">nom du service</label></div><input class="form-control" type="text" id="nomservice" name="nomservice">
+                                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_name">description du service</label></div><input class="form-control" type="text" id="descservice" name="descservice">
+
+                                            <div class="col-sm-6 col-lg-8">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" type="button" id="btnaddService" value="{{ idev }}">ajouter&nbsp;<i class="fa fa-chevron-circle-right"></i></button></div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

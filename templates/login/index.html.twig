@@ -38,15 +38,8 @@
                                         <div class="mb-3">
                                             <div class="custom-control custom-checkbox small"></div>
                                         </div>
-                                        {% if is_granted('ROLE_RH') %}
-                                            <input type="hidden" name="_target_path" value="/RhDashboard">
-                                        {% elseif is_granted('ROLE_USER') %}
-                                            <input type="hidden" name="_target_path" value="/user_dashboard">
-                                        {% elseif is_granted('ROLE_ADMIN') %}
-                                            <input type="hidden" name="_target_path" value="/user_dashboard">
-                                        {% endif %}
-                                        <button class="btn btn-primary d-block btn-user w-100" type="submit">Connecter</button>
 
+                                        <button class="btn btn-primary d-block btn-user w-100" type="submit">Connecter</button>
                                         <hr>
                                     </form>
                                     <div class="text-center"><a class="small" href="#">Forgot Password?</a></div>
@@ -60,8 +53,5 @@
         </div>
     </div>
 
-    <script src={{ asset("assetsPages/bootstrap/js/bootstrap.min.js")}} ></script>
-    <script src={{ asset("assetsPages/js/bs-init.js")}} ></script>
-    <script src={{ asset("assetsPages/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
-    <script src={{ asset("assetsPages/js/theme.js") }}></script>
+
 {% endblock %}

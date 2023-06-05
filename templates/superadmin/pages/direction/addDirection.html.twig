@@ -1,0 +1,40 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}Ajouter direction{% endblock %}
+{% block body %}
+
+    <div class="container" >
+        <form id="contactForm-2" method="post"><input class="form-control" type="hidden" name="Introduction" value="This email was sent from www.mywebsite.com"><input class="form-control" type="hidden" name="subject" value="My Contact Form"><input class="form-control" type="hidden" name="to" value="email@mywebsite.com">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="successfail"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-12" id="message">
+                    <fieldset></fieldset>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">nom direction</label><input class="form-control" type="text" id="nomdirection" name="nomdirection" placeholder="DSI" required></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3"><label class="form-label">ministere</label><select class="form-select" id="ministre" name="ministre">
+                                    {% for ministre in ministres %}
+                                        <option value="{{ ministre.getId() }}">
+                                            {{ ministre.getNomMinistre() }}</option>
+                                    {% endfor %}
+                                </select></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="has-feedback form-group mb-3"><label class="form-label" for="from_phone">Location</label><input class="form-control" type="text" id="location" name="location" placeholder="AV.....,rabat" required></div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" id="btnaddDirection" type="button">Ajouter</button></div>
+                    <hr>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
