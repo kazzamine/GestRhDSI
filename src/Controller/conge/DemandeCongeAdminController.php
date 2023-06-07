@@ -3,6 +3,8 @@
 namespace App\Controller\conge;
 
 use App\Entity\DemandeConge;
+use App\Entity\Notifications;
+use App\Entity\Personnel;
 use App\Repository\CongeJoursRepository;
 use App\Repository\DemandeCongeRepository;
 use App\Service\CommonService;
@@ -36,6 +38,13 @@ class DemandeCongeAdminController extends AbstractController
         $entityManager->flush();
         $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'en cours','adminApprove'=>'en cours']);
 
+        $employe=$entityManager->getRepository(Personnel::class)->findBy(['role'=>'ROLE_RH']);
+        //sending notification
+        $notify=new Notifications();
+        $notify->setReceivant($employe[0]);
+        $notify->setContent('un demande de congé a été accpeter par le responsable');
+        $entityManager->persist($notify);
+        $entityManager->flush();
         return $this->render('admin/demandeConge.html.twig', [
             'controller_name' => 'CongeController',
             'congeList'=>$congeList,

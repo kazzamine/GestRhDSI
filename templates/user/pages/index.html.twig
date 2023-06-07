@@ -1,11 +1,19 @@
 {% extends './user/base.html.twig' %}
 {% block title %}Information{% endblock %}
 {% block body %}
-    {% for notif in notification %}
-        <div><span class="small text-gray-500">Gestionnaire RH</span>
-            <p>{{ notif.getContent() }}</p>
-        </div>
-    {% endfor %}
+        {% block notif_content %}
+            {% for notif in notification %}
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="me-3">
+                        <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                    </div>
+
+                    <div><span class="small text-gray-500">Gestionnaire RH</span>
+                        <p>{{ notif.getContent() }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+            {% endblock %}
         <div class="container-fluid">
             <h3 class="text-dark mb-4"><span style="color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) ;">Profile</span></h3>
             <div class="row mb-3">

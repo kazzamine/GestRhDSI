@@ -1,0 +1,116 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}Roles{% endblock %}
+{% block body %}
+    <div class="row d-flex  justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Modifier role</h3>
+                </div>
+            <form action="{{ path('addrole') }}" method="post">
+                <div class="form-group mb-3"><label class="form-label">Personnel</label><select class="form-select" id="personnel" name="personnel">
+                        {% for user in users %}
+                            <option value="{{ user.getMail() }}">
+                                {{ user.getNomPerso() }} {{ user.getPrenomPerso() }}</option>
+                        {% endfor %}
+                    </select></div>
+                <div class="form-group mb-3"><label class="form-label">ROLES</label><select class="form-select" id="role" name="role">
+                        <option value="ROLE_RH">RH</option>
+                        <option value="ROLE_ADMIN">ADMIN</option>
+                    </select></div>
+                <button class="btn btn-success" type="submit">ajouter</button>
+            </form>
+            </div>
+            <br/>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Roles</h3>
+                </div>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">ADMINS</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">RH</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="container-fluid">
+                            <h3 class="text-dark mb-1">ADMINS</h3>
+                        </div>
+                        <div class="container">
+
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                    <tr>
+                                        <th>PPR</th>
+                                        <th>NOM COMPLET</th>
+                                        <th>GRADE</th>
+                                        <th>ROLE</th>
+                                        <th>SUPPRIMER</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for personnel in personnels %}
+                                        <tr>
+                                            <td>{{ personnel.getPPR() }}</td>
+                                            <td>{{ personnel.getNomPerso() }} {{ personnel.getPrenomPerso() }}</td>
+                                            <td>{{ personnel.getGrade().getNomGrade() }}</td>
+                                            <td>{{ personnel.getRole() }}</td>
+                                            <td><a class="btn btn-danger" role="button" href={{ path('deleteadmin',{'mailpers':personnel.getMail()}) }}>supprimer</a></td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-1">Ressource Humain</h3>
+                    </div>
+                    <div class="container">
+
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th>PPR</th>
+                                    <th>NOM COMPLET</th>
+                                    <th>GRADE</th>
+                                    <th>ROLE</th>
+                                    <th>SUPPRIMER</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for rhs in rh %}
+                                    <tr>
+                                        <td>{{ rhs.getPPR() }}</td>
+                                        <td>{{ rhs.getNomPerso() }} {{ rhs.getPrenomPerso() }}</td>
+                                        <td>{{ rhs.getGrade().getNomGrade() }}</td>
+                                        <td>{{ rhs.getRole() }}</td>
+                                        <td><a class="btn btn-danger" role="button" href={{ path('deleterh',{'mailrh':rhs.getMail()}) }}>supprimer</a></td>
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

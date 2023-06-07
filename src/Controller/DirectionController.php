@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Direction;
 use App\Entity\Ministre;
+use App\Repository\DirectionRepository;
 use App\Repository\MinistreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,5 +37,30 @@ class DirectionController extends AbstractController
 
         return $this->redirectToRoute('adddirection');
 
+    }
+
+    //update direction
+    #[Route('/super-admin/direction/modifierdirection', name: 'modifierdirection')]
+    public function modifierdirection(DirectionRepository $directionRepo): Response
+    {
+        $directions=$directionRepo->findAll();
+        return $this->render('superadmin/pages/direction/updateDirection.html.twig', [
+            'controller_name' => 'DirectionController',
+            'direction'=>$directions,
+        ]);
+    }
+    #[Route('/super-admin/direction/updatedirection', name: 'updatedirection')]
+    public function updatedirection(Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $direction=$entityManager->getRepository(Direction::class)->findBy($data['id']);
+        $direction->setNomDirection($data['nomdirection']);
+        $ministre=$entityManager->getRepository(Ministre::class)->find($data['ministre']);
+        $direction->setMinistereD($ministre);
+        $direction->setLocation($data['location']);
+        $entityManager->persist($direction);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('modifierdirection');
     }
 }

@@ -1,7 +1,6 @@
-{% extends './RH/base.html.twig' %}
-{% block title %}conge{% endblock %}
+{% extends './superadmin/base.html.twig' %}
+{% block title %}modifier Direction{% endblock %}
 {% block body %}
-
     <div class="container-fluid">
         <h3 class="text-dark mb-1">Gestion de congé</h3>
     </div>
@@ -10,18 +9,17 @@
             <div class="row">
                 <div class="col-lg-6 mb-4">
                     <div class="card text-white bg-primary shadow">
-                        <div class="card-body"><a class="btn btn-primary" role="button" href={{ path('logconge') }}>Journal des congés</a>
+                        <div class="card-body"><a class="btn btn-primary" role="button" href={{ path('congeexcept') }}>Les congés exceptionnelle</a>
                             <p class="m-0"></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
                     <div class="card text-white bg-success shadow">
-                        <div class="card-body"><a class="btn btn-success link-light" role="button" href={{ path('demandeConge') }}>Demande de congé</a></div>
+                        <div class="card-body"><a class="btn btn-success link-light" role="button" href={{ path('jourferier') }}>Les jours ferier</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}

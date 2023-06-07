@@ -21,7 +21,7 @@ class DashboardController extends AbstractController
 {
     //RH dashboard
     #[Route('/rh_dashboard', name: 'rh_dashboard')]
-    public function index(CongeRepository $congeRep,AbsenceRepository $absenceRep,DemandeCongeRepository $demandeCongeRepo): Response
+    public function index(NotificationsRepository $notifRepo,PersonnelRepository $persoRepo,TokenStorageInterface $tokenStorage,CongeRepository $congeRep,AbsenceRepository $absenceRep,DemandeCongeRepository $demandeCongeRepo): Response
     {
 
         //date of the week
@@ -32,6 +32,14 @@ class DashboardController extends AbstractController
         //total des personnes en congé
         $congeList=$congeRep->findByDate_fin_conge($dateTime);
         $congeCount=count($congeList);
+
+        // Retrieve the authenticated user's token
+        $token = $tokenStorage->getToken();
+        $username = $token?->getUser()->getUserIdentifier();
+        //get employe info from mail
+        $personnelInfo=$persoRepo->findBy(['mail'=>$username]);
+        $empID=$personnelInfo[0]->getId();
+        $notification=$notifRepo->findBy(['receivant'=>$empID]);
 
         $startDate=$now->modify('this week')->setTime(0, 0, 0);
         $endDate=$now->modify('next Sunday')->setTime(23, 59, 59);
@@ -44,12 +52,13 @@ class DashboardController extends AbstractController
             'totalConge'=>$congeCount,
             'totalDemandeConge'=>$startDate->format('Y-m-d'),
             'absenceWeek'=>$absenceofTheWeek,
+            'notification'=>$notification,
         ]);
     }
 
     //user/admin dashbaord
     #[Route('/user_dashboard', name: 'user_dashboard')]
-    public function userdashboard(NotificationsRepository $notifRepo,SessionInterface $session,TokenStorageInterface $tokenStorage,Request $request,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
+    public function userdashboard(NotificationsRepository $notifRepo,SessionInterface $session,TokenStorageInterface $tokenStorage,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
         //get postes
         $postes=$posteRepo->findAll();

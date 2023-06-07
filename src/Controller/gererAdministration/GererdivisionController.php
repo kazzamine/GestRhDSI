@@ -4,6 +4,7 @@ namespace App\Controller\gererAdministration;
 
 use App\Entity\Devision;
 use App\Entity\Direction;
+use App\Entity\Login;
 use App\Entity\Personnel;
 use App\Repository\DevisionRepository;
 use App\Repository\DirectionRepository;
@@ -56,6 +57,9 @@ class GererdivisionController extends AbstractController
         $direction=$entityManager->getRepository(Direction::class)->find($data['direction']);
         //getting responasble
         $respo=$entityManager->getRepository(Personnel::class)->find($data['responsable']);
+        $respo->setRole('ROLE_ADMIN');
+        $entityManager->persist($respo);
+        $entityManager->flush();
         //new devision
         $devison=new Devision();
         $devison->setNomDevision($data['nomdivision']);
@@ -63,6 +67,12 @@ class GererdivisionController extends AbstractController
         $devison->setResponsable($respo);
         $entityManager->persist($devison);
         $entityManager->flush();
+
+        $login=$entityManager->getRepository(Login::class)->findBy(['email'=>$respo->getMail()]);
+        $login[0]->setRoles(['1'=>'ROLE_ADMIN']);
+        $entityManager->persist($login[0]);
+        $entityManager->flush();
+
         $id=$devison->getId();
         return new Response($id);
     }

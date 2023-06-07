@@ -71,6 +71,9 @@ class Personnel
     #[ORM\OneToMany(mappedBy: 'receivant', targetEntity: Notifications::class)]
     private Collection $notifications;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $role = null;
+
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
@@ -313,6 +316,18 @@ class Personnel
                 $notification->setReceivant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(?string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }

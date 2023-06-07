@@ -1,5 +1,18 @@
 {% extends './RH/base.html.twig' %}
 {% block body %}
+    {% block notif_content %}
+        {% for notif in notification %}
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="me-3">
+                    <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                </div>
+
+                <div><span class="small text-gray-500">Gestionnaire RH</span>
+                    <p>{{ notif.getContent() }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endblock %}
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
                     <h3 class="text-dark mb-0">Dashboard</h3>

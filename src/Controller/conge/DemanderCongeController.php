@@ -5,6 +5,8 @@ namespace App\Controller\conge;
 use App\Entity\Conge;
 use App\Entity\CongeExceptionnel;
 use App\Entity\DemandeConge;
+use App\Entity\Devision;
+use App\Entity\Notifications;
 use App\Entity\Personnel;
 use App\Entity\TypeConge;
 use App\Repository\CongeExceptionnelRepository;
@@ -70,7 +72,13 @@ class DemanderCongeController extends AbstractController
         //flushing data to database
         $entityManager->persist($demandeconge);
         $entityManager->flush();
-
+        //sending notification
+        $notify=new Notifications();
+        $devisionrespo=$employe->getDevision()->getResponsable();
+        $notify->setReceivant($devisionrespo);
+        $notify->setContent($employe->getNomPerso().' '.$employe->getPrenomPerso().' a demander un congé');
+        $entityManager->persist($notify);
+        $entityManager->flush();
 
         $congeExcep=$congeExceptionnelRepo->findAll();
         return $this->render('user/pages/demanderConge.html.twig', [

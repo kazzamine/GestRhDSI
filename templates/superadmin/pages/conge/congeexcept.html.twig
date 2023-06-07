@@ -1,0 +1,50 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}Congé exceptionnelle{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4">conge exceptionnelle</h3>
+
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">congés exceptionnelle</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Conge</th>
+                            <th>Durée</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for conge in conges %}
+                            <tr>
+                                <form action="{{ path('updatecongexcept',{'id':conge.getId()}) }}" method="post">
+                                    <td><input class="form-control" type="text" id="typeconge" name="typeconge" value="{{ conge.getTypeconge() }}"></td>
+                                    <td><input class="form-control" type="number" min="1" max="10" id="duree" name="duree" value="{{ conge.getDuree() }}"></td>
+                                    <td><button class="btn btn-primary" type="submit" >Modifier</button></td>
+                                </form>
+
+                                <td><a class="btn btn-danger" role="button" href={{ path('deletecongeexcept',{'id':conge.getId()}) }}>Supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <form action="{{ path('addcongexcept') }}" method="post">
+                                <td><input class="form-control" type="text" id="newtypeconge" name="newtypeconge" placeholder="saisie un nouveau conge exceptionnelle" required></td>
+                                <td><input class="form-control" type="number" min="1" max="10" id="newduree" name="newduree" placeholder="saisie le duree du conge" required></td>
+                                <td><button class="btn btn-success" type="submit">ajouter</button></td>
+                            </form>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

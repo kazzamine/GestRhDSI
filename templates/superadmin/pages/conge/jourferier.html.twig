@@ -1,0 +1,53 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}Jours fériés{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h3 class="text-dark mb-4">Jours fériés</h3>
+
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">Jours fériés</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                    <table class="table my-0" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>Jours fériés</th>
+                            <th>date debut</th>
+                            <th>date fin</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for jour in jours %}
+                            <tr>
+                                <form action="{{ path('updatejourFerier',{'id':jour.getId()}) }}" method="post">
+                                    <td><input class="form-control" type="text" id="nomjour" name="nomjour" value="{{ jour.getNomJour() }}"></td>
+                                    <td><input class="form-control" type="date" id="datedebut" name="datedebut" value="{{ jour.getDateDebutJour()|date('Y-m-d') }}"></td>
+                                    <td><input class="form-control" type="date" id="datefin" name="datefin" value="{{ jour.getDateFinJour()|date('Y-m-d') }}"></td>
+                                    <td><button class="btn btn-primary" type="submit" >Modifier</button></td>
+                                </form>
+
+                                <td><a class="btn btn-danger" role="button" href={{ path('deletejourFerier',{'id':jour.getId()}) }}>Supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <form action="{{ path('addjourFerier') }}" method="post">
+                                <td><input class="form-control" type="text" id="nomjour" name="nomjour" placeholder="ajouter une nouvelle jour ferier" ></td>
+                                <td><input class="form-control" type="date" id="datedebut" name="datedebut" ></td>
+                                <td><input class="form-control" type="number" id="duree" name="duree" ></td>
+                                <td><button class="btn btn-success" type="submit">ajouter</button></td>
+                            </form>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -72,7 +72,7 @@ class AddEmpController extends AbstractController
         $personnelObj->setDirection($direction);
 
         $personnelObj->setSexe($data['sexe']);
-
+        $personnelObj->setRole('ROLE_USER');
         $contract = $entityManager->getRepository(Contract::class)->find($data['idcontract']);
         $personnelObj->setContract($contract);
 
