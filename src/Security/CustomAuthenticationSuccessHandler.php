@@ -28,7 +28,7 @@ class CustomAuthenticationSuccessHandler extends DefaultAuthenticationSuccessHan
         }else if($this->isAdmin($token)){
             return $this->redirectToRoute('user_dashboard');
         }else if($this->isSuperAdmin($token)){
-            return $this->redirectToRoute('super-admin-dashboard');
+            return $this->redirectToRoute('super_admin_dashboard');
         }
 
         // Redirect to another route for regular users

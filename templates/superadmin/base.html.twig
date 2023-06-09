@@ -13,6 +13,8 @@
     <link rel="stylesheet" href={{ asset("alertjs/css/alertify.css")}}>
     <link rel="stylesheet" href={{ asset("assetsPages/css/Drag--Drop-Upload-Form.css")}}>
     <link rel="stylesheet" href={{ asset("assetsPages/css/Navbar-Centered-Brand-icons.css")}}>
+    <script src={{ asset("assetsPages/js/jquery.js")}} ></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -24,13 +26,13 @@
 <body class="bg-gradient-primary" id="page-top" style="color: var(--bs-black);background: var(--bs-gray-100);">
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand text-start d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background: url({{ asset('assetsPages/img/images/kingdomMorocco.png')}}) 'width=339' 'height=67'">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand text-start d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background: url(&quot;assets/img/images/kingdomMorocco.png&quot;) left / contain no-repeat;width: 50;min-height: none;">
                 <div class="sidebar-brand-icon rotate-n-15"></div>
                 <div class="sidebar-brand-text mx-3"></div>
             </a>
             <hr class="sidebar-divider my-0">
             <ul class="navbar-nav text-light" id="accordionSidebar">
-                <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'rh_dashboard' %}active{% endif %}" href={{ path('super-admin-dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'super_admin_dashboard' %}active{% endif %}" href={{ path('super_admin_dashboard')}} ><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                 <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'empMenu' %}active{% endif %}" href={{ path('empMenu') }}><i class="fas fa-table"></i><span>Employés</span></a></li>
                 <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'gererdivision' %}active{% endif %}" href={{ path('gererdivision') }}><i class="fas fa-window-maximize"></i><span>Gerer l'administration</span></a></li>
                 <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'gest_conge' %}active{% endif %}" href={{ path('gest_conge') }}><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
@@ -96,7 +98,6 @@
 <script src={{ asset("assetsPages/js/bs-init.js")}} ></script>
 <script src={{ asset("assetsPages/js/Contact-FormModal-Contact-Form-with-Google-Map-modal_contact.js")}} ></script>
 <script src={{ asset("assetsPages/js/theme.js")}} ></script>
-<script src={{ asset("assetsPages/js/jquery.js")}} ></script>
 <script src={{ asset("alertjs/alertify.js")}} ></script>
 <script src={{ asset("RH/infoPersonnel.js")}} ></script>
 <script src={{ asset("RH/addEmploye.js")}} ></script>
