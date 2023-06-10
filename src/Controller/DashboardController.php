@@ -19,6 +19,8 @@ use App\Repository\CongeRepository;
 use App\Repository\AbsenceRepository;
 use App\Repository\PersonnelRepository;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use DateTime;
+
 
 class DashboardController extends AbstractController
 {
@@ -92,8 +94,9 @@ class DashboardController extends AbstractController
         $visitor=new Visitor();
         $currentDate = new DateTime();
         $todayDate = $currentDate->format('Y-m-d');
+        $formattedDateTimeObject = DateTime::createFromFormat('Y-m-d', $todayDate);
         $visitor->setVisitorIp($empID);
-        $visitor->setVisitorDate($todayDate);
+        $visitor->setVisitorDate($formattedDateTimeObject);
         $entityManager->persist($visitor);
         $entityManager->flush();
 

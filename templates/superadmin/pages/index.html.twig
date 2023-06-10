@@ -4,10 +4,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        const getCurrentWeekDates= () =>{
+            let dates = [];
+            let today = new Date();
+            let currentDay = today.getDay();
+            for (let i = 0; i <= currentDay; i++) {
+                let date = new Date(today);
+                date.setDate(today.getDate() - (currentDay - i));
+                let formattedDate = date.toISOString().split('T')[0];
+                dates.push(formattedDate);
+            }
+            return dates;
+        }
 
-            var ctx = document.getElementById('visitsChart').getContext('2d');
-            var chartData = {
-                labels: ['07/06','08/06','09/06','12/06'],
+        let thisWeekDates = getCurrentWeekDates();
+        let ctx = document.getElementById('visitsChart').getContext('2d');
+            let chartData = {
+                labels: thisWeekDates,
                 datasets: [{
                     label: 'Visits',
                     data: '{{ data|json_encode() }}',
