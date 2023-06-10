@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Predis\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -19,11 +20,12 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/logout', name: 'app_logout')]
-    public function logout(): RedirectResponse
+    public function logout(Client $redis,TokenStorageInterface $tokenStorage): RedirectResponse
     {
-        // Perform any additional logout logic if needed
+        $token = $tokenStorage->getToken();
+        $username = $token?->getUser()->getUserIdentifier();
+        $redis->srem('active_users', $username);
 
-        // Clear the user's session and redirect to the homepage
         $request = $this->requestStack->getCurrentRequest();
         $session = $request->getSession();
         $session->invalidate();

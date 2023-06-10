@@ -3,17 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Visitor;
-use App\Repository\VisitorRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Predis\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Predis\ClientInterface;
 
 class SuperadminDashboardController extends AbstractController
 {
     #[Route('/super-admin/dashboard', name: 'super_admin_dashboard')]
-    public function analytics(EntityManagerInterface $entityManager): Response
+    public function analytics(EntityManagerInterface $entityManager,Client $redis): Response
     {
         $queryBuilder = $entityManager->createQueryBuilder();
 
@@ -30,11 +30,13 @@ class SuperadminDashboardController extends AbstractController
 
         $allvisitors=$entityManager->getRepository(Visitor::class)->findAll();
         $totalvisitors=count($allvisitors);
+        $activeUsers = $redis->scard('active_users');
 
         return $this->render('superadmin/pages/index.html.twig', [
             'labels' => $labels,
             'data' => $data,
             'total'=>$totalvisitors,
+            'active'=>$activeUsers,
         ]);
     }
 

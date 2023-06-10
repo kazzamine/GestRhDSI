@@ -46,18 +46,20 @@ class DirectionController extends AbstractController
         $directions=$directionRepo->findAll();
         return $this->render('superadmin/pages/direction/updateDirection.html.twig', [
             'controller_name' => 'DirectionController',
-            'direction'=>$directions,
+            'directions'=>$directions,
         ]);
     }
+
     #[Route('/super-admin/direction/updatedirection', name: 'updatedirection')]
     public function updatedirection(Request $request,EntityManagerInterface $entityManager): Response
     {
-        $data = json_decode($request->getContent(), true);
-        $direction=$entityManager->getRepository(Direction::class)->findBy($data['id']);
-        $direction->setNomDirection($data['nomdirection']);
-        $ministre=$entityManager->getRepository(Ministre::class)->find($data['ministre']);
-        $direction->setMinistereD($ministre);
-        $direction->setLocation($data['location']);
+        $directionid=$request->request->get('direction');
+        $nomdirection=$request->request->get('nomdirection');
+        $location=$request->request->get('location');
+
+        $direction=$entityManager->getRepository(Direction::class)->find($directionid);
+        $direction->setNomDirection($nomdirection);
+        $direction->setLocation($location);
         $entityManager->persist($direction);
         $entityManager->flush();
 

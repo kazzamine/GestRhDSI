@@ -28,7 +28,7 @@
 <body class="bg-gradient-primary"  id="page-top" style="color: var(--bs-black);background: var(--bs-gray-100);">
 <div id="wrapper">
     <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand text-start d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background: url(&quot;assets/img/images/kingdomMorocco.png&quot;) left / contain no-repeat;width: 50;min-height: none;">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand text-start d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background: url({{ asset('assets/img/images/kingdomMorocco.png') }}) left / contain no-repeat;width: 50;min-height: none;">
                 <div class="sidebar-brand-icon rotate-n-15"></div>
                 <div class="sidebar-brand-text mx-3"></div>
             </a>
@@ -41,6 +41,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ path('demande_attestaion') }}"><i class="fas fa-window-maximize"></i><span>telecharger attestation</span></a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item"><a class="nav-link" href="{{ path('conge_admin') }}"><i class="fas fa-window-maximize"></i><span>consulter les demandes</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('gererdev') }}"><i class="fas fa-window-maximize"></i><span>Devision</span></a></li>
                 {% endif %}
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

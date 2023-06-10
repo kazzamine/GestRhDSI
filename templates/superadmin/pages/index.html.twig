@@ -45,8 +45,23 @@
             });
     </script>
     <br/>
-    <div>
-    <p>total visitors :  <span>{{ total }}</span></p>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4 mb-2">
+                    <div class="card text-white bg-primary shadow">
+                        <div class="card-body">
+                            <p >total visitors :  <span>{{ total }}</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-2">
+                    <div class="card text-white bg-success shadow">
+                        <div class="card-body"> <p >visitors online :  <span>{{ active }}</span></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

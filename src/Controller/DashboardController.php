@@ -8,10 +8,10 @@ use App\Repository\DemandeCongeRepository;
 use App\Repository\GradeRepository;
 use App\Repository\NotificationsRepository;
 use App\Repository\PosteRepository;
-use App\Repository\VisitorRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Predis\Client;
+use Predis\ClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,7 +63,7 @@ class DashboardController extends AbstractController
 
     //user/admin dashbaord
     #[Route('/user_dashboard', name: 'user_dashboard')]
-    public function userdashboard(EntityManagerInterface $entityManager,NotificationsRepository $notifRepo,SessionInterface $session,TokenStorageInterface $tokenStorage,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
+    public function userdashboard(Client $redis,EntityManagerInterface $entityManager,NotificationsRepository $notifRepo,SessionInterface $session,TokenStorageInterface $tokenStorage,PersonnelRepository $persoRepo,AbsenceRepository $absenceRepo,PosteRepository $posteRepo,GradeRepository $gradeRepo,CongeJoursRepository $congeJourRepo): Response
     {
 
         //get postes
@@ -99,6 +99,8 @@ class DashboardController extends AbstractController
         $visitor->setVisitorDate($formattedDateTimeObject);
         $entityManager->persist($visitor);
         $entityManager->flush();
+
+        $redis->sadd('active_users', $username);
 
         return $this->render('user/pages/index.html.twig', [
             'empInfo'=>$personnelInfo,

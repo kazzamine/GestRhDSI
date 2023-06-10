@@ -3,6 +3,7 @@
 namespace App\Controller\absence;
 
 use App\Entity\Absence;
+use App\Entity\HoraireES;
 use App\Entity\Personnel;
 use App\Repository\AbsenceRepository;
 use App\Repository\PersonnelRepository;
@@ -54,13 +55,13 @@ class AbsenceController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $personeel=$entityManager->getRepository(Personnel::class)->find($data['idperso']);
 
-        $absence=new Absence();
-        $absence->setEmployeAbse($personeel);
-        $dateJour=DateTimeImmutable::createFromFormat('Y-m-d', $data['dateJour']);
-
-        $absence->setDateAbsence($dateJour);
-        $absence->setJustification('non justifié');
-        $entityManager->persist($absence);
+        $es=new HoraireES();
+        $timeEntre = DateTimeImmutable::createFromFormat('H:i:s', '09:30:00');
+        $es->setHeureEntre($timeEntre);
+        $timeSortie = DateTimeImmutable::createFromFormat('H:i:s', '16:30:00');
+        $es->setHeureSortie($timeSortie);
+        $entityManager->persist($es);
+        $es->addPersoID($personeel);
         $entityManager->flush();
         return new Response('success');
     }

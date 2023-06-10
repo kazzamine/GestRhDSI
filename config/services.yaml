@@ -12,6 +12,9 @@ services:
     App\Security\CustomAuthenticationSuccessHandler:
         arguments:
             $router: '@router'
+    Predis\Client:
+        arguments:
+            - 'redis://localhost'
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.

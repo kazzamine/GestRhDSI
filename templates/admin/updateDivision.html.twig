@@ -1,0 +1,78 @@
+{% extends './user/base.html.twig' %}
+{% block title %}Devision{% endblock %}
+{% block body %}
+    <div class="row d-flex  justify-content-center">
+        <div class="col-xl-10 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">liste des employés</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">ajouter au service</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="card-header">
+                            <h3>Employés</h3>
+                        </div>
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th>PPR</th>
+                                    <th>NOM COMPLET</th>
+                                    <th>GRADE</th>
+                                    <th>Service</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for employe in employes %}
+                                    <tr>
+                                        <td>{{ employe.getPPR() }}</td>
+                                        <td>{{ employe.getNomPerso() }} {{ employe.getPrenomPerso() }}</td>
+                                        <td>{{ employe.getGrade().getNomGrade() }}</td>
+                                        <td>{{ employe.getService().getNomService() }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>ajouter employé au service</h3>
+                        </div>
+                        <form action="{{ path('updatedev') }}" method="post">
+                            <div class="form-group mb-3"><label class="form-label">Services</label><select class="form-select" id="service" name="service">
+                                    {% for service in services %}
+                                        <option value="{{ service.getId() }}">
+                                            {{ service.getNomService() }}</option>
+                                    {% endfor %}
+                                </select></div>
+                            <div class="form-group mb-3"><label class="form-label">Personnel</label><select class="form-select" id="personnel" name="personnel">
+                                    {% for user in users %}
+                                        <option value="{{ user.getId() }}">
+                                            {{ user.getNomPerso() }} {{ user.getPrenomPerso() }}</option>
+                                    {% endfor %}
+                                </select></div>
+                            <button class="btn btn-success" type="submit" name="devisionid" id="devisionid" value="{{ devisionid[0].getId() }}">ajouter au service</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

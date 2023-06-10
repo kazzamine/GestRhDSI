@@ -6,6 +6,7 @@ use App\Entity\Devision;
 use App\Entity\Direction;
 use App\Entity\Login;
 use App\Entity\Personnel;
+use App\Entity\Service;
 use App\Repository\DevisionRepository;
 use App\Repository\DirectionRepository;
 use App\Repository\GradeRepository;
@@ -14,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GererdivisionController extends AbstractController
@@ -83,5 +85,40 @@ class GererdivisionController extends AbstractController
         return $this->render('superadmin/pages/devisions/division.html.twig', [
             'controller_name' => 'GererdivisionController',
         ]);
+    }
+
+    //gerer devision admin
+    #[Route('/admin/gererdev', name: 'gererdev')]
+    public function gererdev(EntityManagerInterface $entityManager,SessionInterface $session): Response
+    {
+        $adminid=$session->get('empid');
+        $admin=$entityManager->getRepository(Personnel::class)->find($adminid);
+        $devision=$entityManager->getRepository(Devision::class)->findBy(['responsable'=>$admin]);
+        $personnels=$entityManager->getRepository(Personnel::class)->findBy(['role'=>'ROLE_USER']);
+        $serv=$entityManager->getRepository(Service::class)->findBy(['devision'=>$devision]);
+        $personnelsDev=$entityManager->getRepository(Personnel::class)->findBy(['devision'=>$devision]);
+        return $this->render('admin/updateDivision.html.twig', [
+            'controller_name' => 'GererdivisionController',
+            'services'=>$serv,
+            'users'=>$personnels,
+            'devisionid'=>$devision,
+            'employes'=>$personnelsDev,
+        ]);
+    }
+
+    #[Route('/admin/gererdev/updatedev', name: 'updatedev')]
+    public function updatedev(Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $personnel=$request->request->get('personnel');
+        $service=$request->request->get('service');
+        $devid=$request->request->get('devisionid');
+        $perso=$entityManager->getRepository(Personnel::class)->find($personnel);
+        $serv=$entityManager->getRepository(Service::class)->find($service);
+        $devi=$entityManager->getRepository(Devision::class)->find($devid);
+        $perso->setService($serv);
+        $perso->setDevision($devi);
+        $entityManager->persist($perso);
+        $entityManager->flush();
+        return $this->redirectToRoute('gererdev');
     }
 }

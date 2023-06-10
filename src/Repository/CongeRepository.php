@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Conge;
+use App\Entity\DemandeConge;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -43,8 +44,12 @@ class CongeRepository extends ServiceEntityRepository
     {
         $qb=$this->createQueryBuilder('conge');
         $qb->select('conge')
+            ->from(DemandeConge::class,'d')
             ->where('conge.date_fin_conge >= :todaydate')
-            ->setParameter('todaydate', $todayDate);
+            ->andWhere('d.etatDemande = :etat')
+            ->setParameter('todaydate', $todayDate)
+            ->setParameter('etat','accepter');
+
 
         return $qb->getQuery()->getResult();
     }

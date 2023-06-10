@@ -34,6 +34,7 @@
                             <td>{{ personnel.getCIN() }}</td>
                             <td>{{ personnel.getGrade().getNomGrade() }}</td>
                             <td><a class="btn btn-primary" role="button" href={{ path('employeInfo',{'ppr':personnel.getPPR()}) }}>consulter</a></td>
+{#                            <td><a class="btn btn-primary" role="button" href={{ path('deleteEmploye',{'id':personnel.getId()}) }}>Supprimer</a></td>#}
                         </tr>
                         {% endfor %}
                         </tbody>

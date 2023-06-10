@@ -9,10 +9,7 @@ $(()=>{
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function() {
-                    alertify
-                        .success("Enregistrer avec success", ()=>{
-                            alertify.success();
-                        });
+
             },
             error: function(response) {
                 alertify
@@ -49,27 +46,23 @@ $(()=>{
     let dateSortie=$('.dateSortie');
 
     $('#btnSaveAbsence').on('click',()=>{
-        // if(absentCB[0].val()){
-        //     console.log('absent')
-        // }
         for (var i = 0; i < absentCB.length; i++) {
-            // console.log(dateEntre.val())
             if(absentCB[i].checked==true){
                 let data={
                     idperso:absentCB[i].dataset.persoId,
                     dateJour:dateJour.val()
                 };
                 saisiAbsence(data);
+                alertify
+                    .success("Enregistrer avec success", ()=>{
+                        alertify.success();
+                    });
 
             }else{
-
                 let data={
                     idperso:absentCB[i].dataset.persoId,
-                    dateJour:dateJour.val(),
-
-                };
-                console.log(dateEntre.val())
-                // saisieES(data);
+                }
+                 saisieES(data);
             }
         }
 

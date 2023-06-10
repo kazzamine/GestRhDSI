@@ -22,8 +22,8 @@
                         {% for personnel in persoListe %}
                         <tr>
                             <td>{{ personnel.getNomPerso() }} {{ personnel.getPrenomPerso() }}
-                            <td><input type="time" name="dateEntre" id="dateEntre" class="dateEntre"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
-                            <td><input type="time" name="dateSortie" id="dateSortie"  class="dateSortie"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
+                            <td><input type="time" name="dateEntre" id="dateEntre" class="dateEntre" value="09:30"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
+                            <td><input type="time" name="dateSortie" id="dateSortie"  class="dateSortie" value="16:30"  data-perso-id="{{ personnel.getId() }}" style="width: 150px;font-family: ABeeZee, sans-serif;"></td>
                             <td style="text-align: center;"><input type="checkbox" style="text-align: center;" id="absent" class="absent" data-perso-id="{{ personnel.getId() }}" name="absent" value="absent"></td>
                         </tr>
                         {% endfor %}
