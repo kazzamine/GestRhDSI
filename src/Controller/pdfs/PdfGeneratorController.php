@@ -2,6 +2,7 @@
 
 namespace App\Controller\pdfs;
 
+use App\Repository\DemandeCongeRepository;
 use App\Repository\PersonnelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,6 +61,31 @@ class PdfGeneratorController extends AbstractController
             Response::HTTP_OK,
             ['Content-Type' => 'application/pdf']
         );
+    }
+
+    //log congé
+    #[Route('/pdf/logcongee', name: 'logcongee')]
+    public function logcongee(DemandeCongeRepository $demandeCongeRepo)
+    {
+        $congeList=$demandeCongeRepo->findBy(['etatDemande'=>'accepter']);
+
+        $html = $this->renderView('RH/pages/logconge.html.twig',['congeList'=>$congeList,]);
+        $divPdf = new Dompdf();
+        $divPdf->loadHtml($html);
+        $divPdf->setPaper('A4', 'portrait');
+        $dom = $divPdf->getDom();
+        $divElement = $dom->getElementById('toDownload');
+        $body = $dom->getElementsByTagName('body')->item(0);
+        $body->nodeValue = '';
+        $body->appendChild($divElement->cloneNode(true));
+
+        $divPdf->render();
+        $divOutput = $divPdf->output();
+        $response = new Response($divOutput);
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition', 'attachment; filename="logconge.pdf"');
+
+        return $response;
     }
 
 }

@@ -37,6 +37,7 @@
                 <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'gererdivision' %}active{% endif %}" href={{ path('gererdivision') }}><i class="fas fa-window-maximize"></i><span>Gerer l'administration</span></a></li>
                 <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'gest_conge' %}active{% endif %}" href={{ path('gest_conge') }}><i class="fas fa-window-maximize"></i><span>Congé</span></a></li>
                 <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'gererrole' %}active{% endif %}" href={{ path('gererrole') }}><i class="fas fa-window-maximize"></i><span>Roles</span></a></li>
+                <li class="nav-item"><a class="nav-link {% if app.request.attributes.get('_route') == 'resetall' %}active{% endif %}" href={{ path('resetall') }}><i class="fas fa-window-maximize"></i><span>réinitialiser tous</span></a></li>
 
             </ul>
             <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

@@ -1,0 +1,18 @@
+{% extends './superadmin/base.html.twig' %}
+{% block title %}réinitialiser{% endblock %}
+{% block body %}
+    <div class="row d-flex  justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="card">
+                <div class="card-header">
+                    <h3>réinitialiser Les inforamtion</h3>
+                </div>
+                <div>
+                    <p>aprés la fin de chaque année vous pouvez réinitialiser les donnés dépasser (Congé,Absence,Heure d'entré)</p>
+                    <a type="button" class="btn btn-outline-dark h-25" href="{{ path('resetallremove') }}">réinitialiser</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
